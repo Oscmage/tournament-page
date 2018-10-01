@@ -1,0 +1,13 @@
+{
+  "name": "tournament-page",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "frontend": "cd frontend && yarn start",
+    "server": "cd backend && yarn start",
+    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0"
+  }
+}
