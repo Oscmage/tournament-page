@@ -1,4 +1,5 @@
 import "./App.css";
+import "./css/Main.css";
 import * as React from "react";
 import { LoginContainer } from "./containerComponents/Login";
 import { RegisterContainer } from "./containerComponents/Register";

@@ -1,6 +1,7 @@
 import * as React from "react";
 import LoginForm from "./LoginForm";
 import { IUser } from "../interface/State";
+import "../css/Login.css";
 
 class Login extends React.Component<
   {

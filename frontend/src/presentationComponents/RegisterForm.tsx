@@ -73,7 +73,7 @@ class RegisterForm extends React.Component<
     if (this.state.passwordMatch) {
       return (
         <div className="RegisterForm">
-          <h2>Eeey, regga då</h2>
+          <h2>Registrera dig</h2>
           {form}
         </div>
       );
