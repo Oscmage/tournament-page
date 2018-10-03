@@ -21,6 +21,7 @@ class RegisterForm extends React.Component<
   public render() {
     return (
       <div className="RegisterForm">
+        <h2>Eeey, regga då</h2>
         <form onSubmit={this.onRegister}>
           <input
             placeholder="First name"
