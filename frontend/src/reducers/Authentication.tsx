@@ -9,7 +9,7 @@ import { getUserFromStorage } from "../helpers/LocalStorage";
 const user = getUserFromStorage();
 const initialState = user ? { loggedIn: true, user } : {};
 
-export function authentication(state = initialState, action: any) {
+export default function authentication(state = initialState, action: any) {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {
@@ -17,14 +17,11 @@ export function authentication(state = initialState, action: any) {
         user: action.user
       };
     case LOGIN_SUCCESS:
-      return {
-        loggedIn: true,
-        user: action.user
-      };
+      return { ...state, loggedIn: true, user: action.user };
     case LOGIN_FAILURE:
       return {};
     case LOGOUT:
-      return {};
+      return { ...state, loggedIn: false };
     default:
       return state;
   }

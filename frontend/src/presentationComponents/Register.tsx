@@ -1,11 +1,11 @@
 import * as React from "react";
-import User from "./../interface/User";
+import IRegisterUser from "./../interface/User";
 import RegisterForm from "./RegisterForm";
 import { Registration } from "../interface/State";
 
 class Register extends React.Component<
   {
-    onRegister: (user: User) => void;
+    onRegister: (user: IRegisterUser) => void;
     registration: Registration;
   },
   {}
