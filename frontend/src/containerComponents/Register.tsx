@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
-import User from "./../interface/User";
+import IRegisterUser from "./../interface/User";
 import { register } from "./../actions/User";
 import Register from "./../presentationComponents/Register";
 
 const mapDispatchToProps = (dispatch: any) => ({
-  onRegister: (user: User) => {
+  onRegister: (user: IRegisterUser) => {
     dispatch(register(user));
   }
 });

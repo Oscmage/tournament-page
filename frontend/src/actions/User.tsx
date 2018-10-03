@@ -33,9 +33,20 @@ export function register(user: User): any {
 }
 
 function loginSuccesful(json: any) {
+  const firstName = json.firstName;
+  const lastName = json.lastName;
+  const jwt = json.token;
+  const username = json.username;
+  const id = json._id;
   return {
     type: LOGIN_SUCCESS,
-    user: json
+    user: {
+      id,
+      firstName,
+      lastName,
+      username,
+      jwt
+    }
   };
 }
 
@@ -66,6 +77,14 @@ export function login(username: string, password: string) {
 
         return user;
       });
+  };
+}
+
+export function logout() {
+  return (dispatch: any) => {
+    // remove user from local storage to log user out
+    localStorage.removeItem("user");
+    dispatch({ type: LOGOUT });
   };
 }
 
