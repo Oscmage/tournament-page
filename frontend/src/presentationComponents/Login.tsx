@@ -1,10 +1,14 @@
 import * as React from "react";
+import LoginForm from "./LoginForm";
 
-class Login extends React.Component {
+class Login extends React.Component<
+  { onLogin: (username: string, password: string) => void },
+  {}
+> {
   public render() {
     return (
       <div className="Login">
-        <p>Test</p>
+        <LoginForm onLogin={this.props.onLogin} />
       </div>
     );
   }

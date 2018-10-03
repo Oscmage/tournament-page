@@ -8,7 +8,7 @@ function requestRegister(user: User): any {
   };
 }
 
-export function registerSuccessfull(json: any) {
+function registerSuccessfull(json: any) {
   return {
     type: Registration.SUCCESS,
     user: json
@@ -28,6 +28,43 @@ export function register(user: User): any {
       .then(handleResponse) // Add dispatch(registerFailure())
       .then(data => {
         dispatch(registerSuccessfull(data));
+      });
+  };
+}
+
+function loginSuccesful(json: any) {
+  return {
+    type: LOGIN_SUCCESS,
+    user: json
+  };
+}
+
+function requestLogin() {
+  return {
+    type: LOGIN_REQUEST
+  };
+}
+
+export function login(username: string, password: string) {
+  // Try to login
+  return (dispatch: any) => {
+    dispatch(requestLogin());
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password })
+    };
+    return fetch("/users/authenticate", requestOptions)
+      .then(handleResponse)
+      .then(user => {
+        dispatch(loginSuccesful(user));
+        // login successful if there's a jwt token in the response
+        if (user.token) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem("user", JSON.stringify(user));
+        }
+
+        return user;
       });
   };
 }
