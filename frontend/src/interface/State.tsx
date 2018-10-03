@@ -1,10 +1,15 @@
 import User from "./User";
 
-export default interface IState {
+export interface IState {
   user: User;
-  registration: User;
+  registration:
+    | Registration.REQUEST
+    | Registration.SUCCESS
+    | Registration.FAILURE;
 }
 
-export interface IRegistration {
-  registration: User;
+export enum Registration {
+  REQUEST = "REQUEST",
+  SUCCESS = "SUCCESS",
+  FAILURE = "FAILURE"
 }

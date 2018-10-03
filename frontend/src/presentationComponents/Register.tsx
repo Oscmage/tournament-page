@@ -1,67 +1,40 @@
 import * as React from "react";
+import User from "./../interface/User";
+import RegisterForm from "./RegisterForm";
+import { Registration } from "../interface/State";
 
 class Register extends React.Component<
-  { onRegister: any },
-  { user: { firstName: string; lastName: string; email: string } }
+  {
+    onRegister: (user: User) => void;
+    registration: Registration;
+  },
+  {}
 > {
   public constructor(props: any) {
     super(props);
-    this.state = { user: { firstName: "", lastName: "", email: "" } };
   }
 
   public render() {
-    return (
-      <div className="Register">
-        <form onSubmit={this.onRegister}>
-          <input
-            placeholder="First name"
-            value={this.state.user.firstName}
-            onChange={this.updateFirstName}
-            type="text"
-            name="fname"
-          />
-          <input
-            placeholder="Last name"
-            value={this.state.user.lastName}
-            onChange={this.updateLastName}
-            type="text"
-            name="lname"
-          />
-          <input
-            placeholder="Email"
-            value={this.state.user.email}
-            onChange={this.updateEmail}
-            type="text"
-            name="email"
-          />
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
-    );
+    const reg = this.props.registration;
+    if (!reg) {
+      return (
+        <div className="Register">
+          <RegisterForm onRegister={this.props.onRegister} />
+        </div>
+      );
+    } else {
+      if (reg === Registration.REQUEST) {
+        // TODO (DISPLAY LOADING SPINNER)
+        return <div>SENT REQUEST TO CREATE USER! HOPE IT WORKS!</div>;
+      }
+      if (reg === Registration.SUCCESS) {
+        // TODO (DISPLAY CREATED USER COMPONENT)
+        return <div>LETS GO, WE CREATED A USER!</div>;
+      }
+      // TODO (DISPLAY ERROR FOR CREATING USER)
+      return <div>SHIET, SOMETHING WENT WRONG</div>;
+    }
   }
-
-  private onRegister = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    this.props.onRegister(this.state.user);
-  };
-
-  private updateFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      user: { ...this.state.user, firstName: event.target.value }
-    });
-  };
-
-  private updateLastName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      user: { ...this.state.user, lastName: event.target.value }
-    });
-  };
-
-  private updateEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      user: { ...this.state.user, email: event.target.value }
-    });
-  };
 }
 
 export default Register;

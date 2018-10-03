@@ -9,7 +9,11 @@ const mapDispatchToProps = (dispatch: any) => ({
   }
 });
 
+const mapStateToProp = (state: any) => {
+  return state.registration === {} ? undefined : state.registration;
+};
+
 export const RegisterContainer = connect(
-  null,
+  mapStateToProp,
   mapDispatchToProps
 )(Register);

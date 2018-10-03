@@ -1,12 +1,13 @@
-import { REGISTER_SUCCESS, REGISTER_FAILURE } from "./../actions/User";
+import { Registration } from "./../interface/State";
 
 export default function registration(state = {}, action: any) {
-  console.log(state);
   switch (action.type) {
-    case REGISTER_SUCCESS:
-      return { ...state, user: action.user };
-    case REGISTER_FAILURE:
-      return {};
+    case Registration.REQUEST:
+      return { ...state, registration: Registration.REQUEST };
+    case Registration.SUCCESS:
+      return { ...state, registration: Registration.SUCCESS };
+    case Registration.FAILURE:
+      return { ...state, registration: Registration.FAILURE };
     default:
       return state;
   }

@@ -1,18 +1,16 @@
 import User from "./../interface/User";
-export const REGISTER_SUCCESS = "USERS_REGISTER_SUCCESS";
-export const REGISTER_FAILURE = "USERS_REGISTER_FAILURE";
-export const REQUEST_REGISTER = "USER_REQISTER_REQUEST";
+import { Registration } from "./../interface/State";
 
 function requestRegister(user: User): any {
   return {
-    type: REQUEST_REGISTER,
+    type: Registration.REQUEST,
     user
   };
 }
 
-function registerSuccessfull(json: any) {
+export function registerSuccessfull(json: any) {
   return {
-    type: REGISTER_SUCCESS,
+    type: Registration.SUCCESS,
     user: json
   };
 }
@@ -27,7 +25,7 @@ export function register(user: User): any {
       body: JSON.stringify(user)
     };
     return fetch("/users/register", requestOptions)
-      .then(handleResponse)
+      .then(handleResponse) // Add dispatch(registerFailure())
       .then(data => {
         dispatch(registerSuccessfull(data));
       });
