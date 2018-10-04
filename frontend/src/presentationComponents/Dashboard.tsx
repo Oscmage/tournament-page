@@ -1,4 +1,5 @@
 import * as React from "react";
+import "../css/Dashboard.css";
 
 class Dashboard extends React.Component {
   public render() {

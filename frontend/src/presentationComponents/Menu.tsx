@@ -29,9 +29,11 @@ class Menu extends React.Component<
       this.resetDropdownState(false, true);
     }
 
-    const loginButtonString = this.props.loggedIn
-      ? "Display login options"
-      : "Login";
+    const loginIcon = this.props.loggedIn ? (
+      <div onClick={this.onLoginButton} className="Avatar" />
+    ) : (
+      <button onClick={this.onLoginButton}>Login</button>
+    );
     return (
       <div className="Menu">
         <div className="Links">
@@ -45,9 +47,7 @@ class Menu extends React.Component<
           </ul>
         </div>
         <div className="LoginContainer">
-          <div className="LoginButtonContainer">
-            <button onClick={this.onLoginButton}>{loginButtonString}</button>
-          </div>
+          <div className="LoginButtonContainer">{loginIcon}</div>
           {login}
         </div>
       </div>

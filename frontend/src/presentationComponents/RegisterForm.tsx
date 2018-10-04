@@ -99,7 +99,7 @@ class RegisterForm extends React.Component<
 
     return (
       <div className="RegisterForm">
-        <h2>Registrera dig</h2>
+        <h2>Register</h2>
         {form}
         {emailMatch}
         {passwordMatch}

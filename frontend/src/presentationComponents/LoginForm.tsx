@@ -36,7 +36,7 @@ class LoginForm extends React.Component<
           type="password"
           name="password"
         />
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Login" />
       </form>
     );
 
@@ -44,7 +44,7 @@ class LoginForm extends React.Component<
 
     return (
       <div className="LoginForm">
-        <h2>Logga in</h2>
+        <h2>Login</h2>
         {form}
         {error}
       </div>
