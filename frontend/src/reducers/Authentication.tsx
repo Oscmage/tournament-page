@@ -21,7 +21,7 @@ export default function authentication(state = initialState, action: any) {
     case LOGIN_FAILURE:
       return {};
     case LOGOUT:
-      return { ...state, loggedIn: false };
+      return { ...state, loggedIn: false, user: undefined };
     default:
       return state;
   }

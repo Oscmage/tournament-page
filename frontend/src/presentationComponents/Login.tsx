@@ -27,11 +27,19 @@ class Login extends React.Component<
       return <Redirect to="/dashboard" />;
     }
 
-    return (
-      <div className="Login">
-        <LoginForm onLogin={this.onLogin} />
-      </div>
-    );
+    if (this.props.user) {
+      return (
+        <div className="Logout">
+          <button onClick={this.props.onLogout}>Logout</button>
+        </div>
+      );
+    } else {
+      return (
+        <div className="Login">
+          <LoginForm onLogin={this.onLogin} />
+        </div>
+      );
+    }
   }
 
   private onLogin = (username: string, password: string): Promise<boolean> => {
