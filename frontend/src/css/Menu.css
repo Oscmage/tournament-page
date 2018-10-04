@@ -1,0 +1,43 @@
+.Menu {
+  display: flex;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+}
+
+.Links {
+  display: flex;
+  width: 100%;
+}
+
+.Menu ul {
+  display: flex;
+  list-style-type: none;
+  justify-content: space-between;
+}
+
+.Menu li {
+  padding: 0 1rem;
+}
+
+.LoginButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.LoginContainer  {
+  display: flex;
+  flex-direction: column;
+}
+
+.Login {
+  position: fixed;
+  right: 0;
+}
+
+.Logout {
+  position: fixed;
+  right: 0;
+}

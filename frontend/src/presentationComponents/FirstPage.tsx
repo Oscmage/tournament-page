@@ -1,12 +1,11 @@
 import * as React from "react";
-import { LoginContainer } from "../containerComponents/Login";
 import { RegisterContainer } from "../containerComponents/Register";
+import "../css/Home.css";
 
 class FirstPage extends React.Component {
   public render() {
     return (
       <div className="FirstPage">
-        <LoginContainer />
         <RegisterContainer />
       </div>
     );
