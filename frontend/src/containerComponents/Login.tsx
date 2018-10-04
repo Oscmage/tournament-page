@@ -3,8 +3,8 @@ import { login, logout } from "./../actions/User";
 import Login from "./../presentationComponents/Login";
 
 const mapDispatchToProps = (dispatch: any) => ({
-  onLogin: (username: string, password: string) => {
-    dispatch(login(username, password));
+  onLogin: (username: string, password: string): Promise<boolean> => {
+    return dispatch(login(username, password));
   },
   onLogout: () => {
     dispatch(logout());

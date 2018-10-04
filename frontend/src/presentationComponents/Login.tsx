@@ -1,45 +1,46 @@
 import * as React from "react";
 import LoginForm from "./LoginForm";
+import { Redirect, withRouter } from "react-router-dom";
 import { IUser } from "../interface/State";
 import "../css/Login.css";
 
 class Login extends React.Component<
   {
-    onLogin: (username: string, password: string) => void;
+    onLogin: (username: string, password: string) => Promise<boolean>;
     onLogout: () => void;
     loggedIn: boolean;
     user: IUser;
   },
-  {}
+  { redirect: boolean }
 > {
-  public render() {
-    const { loggedIn, onLogout, onLogin, user } = this.props;
-    if (loggedIn) {
-      if (user) {
-        return (
-          <div className="Login">
-            <p>
-              Welcome {user.firstName} {user.lastName} or should I call you{" "}
-              {user.username}. You have user id {user.id} and token: {user.jwt}
-            </p>
-            <button onClick={onLogout}>Logout</button>
-          </div>
-        );
-      } else {
-        return (
-          <div className="Login">
-            <button onClick={onLogout}>Logout</button>
-          </div>
-        );
-      }
-    } else {
-      return (
-        <div className="Login">
-          <LoginForm onLogin={onLogin} />
-        </div>
-      );
-    }
+  public constructor(props: any) {
+    super(props);
+    this.state = {
+      redirect: false
+    };
   }
+
+  public render() {
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to="/dashboard" />;
+    }
+
+    return (
+      <div className="Login">
+        <LoginForm onLogin={this.onLogin} />
+      </div>
+    );
+  }
+
+  private onLogin = (username: string, password: string): any => {
+    return this.props.onLogin(username, password).then(() => {
+      this.setState({
+        redirect: true
+      });
+    });
+  };
 }
 
-export default Login;
+export default withRouter(Login);

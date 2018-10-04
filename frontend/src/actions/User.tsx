@@ -68,14 +68,13 @@ export function login(username: string, password: string) {
     return fetch("/users/authenticate", requestOptions)
       .then(handleResponse)
       .then(user => {
-        dispatch(loginSuccesful(user));
         // login successful if there's a jwt token in the response
         if (user.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem("user", JSON.stringify(user));
         }
-
-        return user;
+        dispatch(loginSuccesful(user));
+        return Promise.resolve(true);
       });
   };
 }
@@ -112,7 +111,7 @@ function handleResponse(response: any) {
     if (!response.ok) {
       if (response.status === 401) {
         // auto logout if 401 response returned from api
-        // TODO (LOGOUT)
+        logout();
         location.reload(true);
       }
 
