@@ -34,11 +34,12 @@ class Login extends React.Component<
     );
   }
 
-  private onLogin = (username: string, password: string): any => {
+  private onLogin = (username: string, password: string): Promise<boolean> => {
     return this.props.onLogin(username, password).then(() => {
       this.setState({
         redirect: true
       });
+      return Promise.resolve(true);
     });
   };
 }

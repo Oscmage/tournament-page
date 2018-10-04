@@ -1,7 +1,7 @@
 import * as React from "react";
 
 class LoginForm extends React.Component<
-  { onLogin: (username: string, password: string) => any },
+  { onLogin: (username: string, password: string) => Promise<boolean> },
   {
     username: string;
     password: string;
