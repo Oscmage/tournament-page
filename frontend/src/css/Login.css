@@ -1,11 +1,13 @@
 .Logout {
   display: flex;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(42, 45, 52, 1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
   width: 150px;
   padding: 1rem;
 }
 
 .Login {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(42, 45, 52, 1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
 }
