@@ -7,6 +7,16 @@ class Menu extends React.Component<
   { loggedIn: boolean },
   { display: boolean; loginRegistered: boolean; logoutRegistered: boolean }
 > {
+  public static getDerivedStateFromProps(props: any, state: any) {
+    // Need to reset the dropdown state, otherwise the user have to click twice.
+    if (props.loggedIn !== state.loggedIn) {
+      return {
+        ...props,
+        display: false
+      };
+    }
+    return null;
+  }
   public constructor(props: any) {
     super(props);
     this.state = {
@@ -18,16 +28,6 @@ class Menu extends React.Component<
 
   public render() {
     const login = this.state.display ? <LoginContainer /> : "";
-
-    // If this is not present the display button will have to be pressed twice to display logout.
-    if (this.props.loggedIn && !this.state.loginRegistered) {
-      this.resetDropdownState(true, false);
-    }
-
-    // If this is not present the display will have to be pressed twice after logging in and out.
-    if (!this.props.loggedIn && !this.state.logoutRegistered) {
-      this.resetDropdownState(false, true);
-    }
 
     const loginIcon = this.props.loggedIn ? (
       <div onClick={this.onLoginButton} className="Avatar" />
@@ -57,15 +57,6 @@ class Menu extends React.Component<
   private onLoginButton = () => {
     this.setState({ ...this.state, display: !this.state.display });
   };
-
-  private resetDropdownState(login: boolean, logout: boolean) {
-    this.setState({
-      ...this.state,
-      display: false,
-      loginRegistered: login,
-      logoutRegistered: logout
-    });
-  }
 }
 
 export default Menu;
