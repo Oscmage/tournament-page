@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -20,4 +24,43 @@ p {
 
 a {
   color: #ebebeb;
+}
+
+button {
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  padding: 0.5rem;
+  background-color: rgba(42, 45, 52, 1);
+  border-radius: 2px;
+  border: 1px solid #ebebeb;
+  color: #ebebeb;
+  outline: none;
+  transition: color 0.5s ease, background-color 0.5s ease;
+}
+
+button:hover {
+  background-color: #ebebeb;
+  color: rgba(42, 45, 52, 1);
+}
+
+input {
+  width: 100%;
+  padding: 10px 15px;
+  font-family: "Open Sans";
+  font-weight: 400;
+  color: #fff;
+  background: rgba(42, 45, 52, 1);
+  border: 1px solid #ebebeb;
+  border-radius: 0.5px;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.1);
+  outline: 0;
+  margin: 0.2rem 0;
+}
+
+input:focus {
+  border-color: #fff;
+}
+
+form {
+  width: 220px;
 }

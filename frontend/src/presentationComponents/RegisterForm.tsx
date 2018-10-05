@@ -37,6 +37,8 @@ class RegisterForm extends React.Component<
           onChange={this.updateFirstName}
           type="text"
           name="fname"
+          minLength={2}
+          maxLength={100}
         />
         <input
           placeholder="Last name"
@@ -44,19 +46,23 @@ class RegisterForm extends React.Component<
           onChange={this.updateLastName}
           type="text"
           name="lname"
+          minLength={2}
+          maxLength={100}
         />
         <input
           placeholder="Email"
           value={this.state.user.email}
           onChange={this.updateEmail}
-          type="text"
+          maxLength={100}
+          type="email"
           name="email"
         />
         <input
           placeholder="Renter Email"
           value={this.state.reEmail}
           onChange={this.updateReEmail}
-          type="text"
+          maxLength={100}
+          type="email"
           name="renteremail"
         />
         <input
@@ -64,6 +70,8 @@ class RegisterForm extends React.Component<
           value={this.state.user.username}
           onChange={this.updateUsername}
           type="text"
+          minLength={4}
+          maxLength={30}
           name="username"
         />
         <input
@@ -71,6 +79,8 @@ class RegisterForm extends React.Component<
           value={this.state.user.password}
           onChange={this.updatePassword}
           type="password"
+          minLength={6}
+          maxLength={30}
           name="password"
         />
         <input
@@ -79,6 +89,8 @@ class RegisterForm extends React.Component<
           onChange={this.updateRePassword}
           onFocus={this.disableMatchError}
           type="password"
+          minLength={6}
+          maxLength={30}
           name="renterpassword"
         />
         <input type="submit" value="Submit" />

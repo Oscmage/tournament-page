@@ -8,6 +8,11 @@
 }
 
 .Login {
+  padding: 1rem;
   background-color: rgba(42, 45, 52, 1);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
+}
+
+.Login h2 {
+  color: #ebebeb;
 }

@@ -1,0 +1,9 @@
+.Register {
+  display: flex;
+  background-color: rgba(42, 45, 52, 1);
+  padding: 1rem;
+}
+
+.Register h2 {
+  color: #ebebeb;
+}
