@@ -55,7 +55,8 @@ button:hover {
   color: rgba(42, 45, 52, 1);
 }
 
-input {
+input,
+textarea {
   width: 100%;
   padding: 10px 15px;
   font-family: "Open Sans";
@@ -69,8 +70,14 @@ input {
   margin: 0.2rem 0;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
   border-color: #fff;
+}
+
+textarea {
+  resize: none;
+  height: 100px;
 }
 
 form {

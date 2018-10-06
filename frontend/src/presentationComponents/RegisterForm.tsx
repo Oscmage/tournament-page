@@ -32,6 +32,7 @@ class RegisterForm extends React.Component<
     const form = (
       <form onFocus={this.disableMatchError} onSubmit={this.onRegister}>
         <input
+          required
           placeholder="First name"
           value={this.state.user.firstName}
           onChange={this.updateFirstName}
@@ -41,6 +42,7 @@ class RegisterForm extends React.Component<
           maxLength={100}
         />
         <input
+          required
           placeholder="Last name"
           value={this.state.user.lastName}
           onChange={this.updateLastName}
@@ -50,6 +52,7 @@ class RegisterForm extends React.Component<
           maxLength={100}
         />
         <input
+          required
           placeholder="Email"
           value={this.state.user.email}
           onChange={this.updateEmail}
@@ -58,6 +61,7 @@ class RegisterForm extends React.Component<
           name="email"
         />
         <input
+          required
           placeholder="Renter Email"
           value={this.state.reEmail}
           onChange={this.updateReEmail}
@@ -66,6 +70,7 @@ class RegisterForm extends React.Component<
           name="renteremail"
         />
         <input
+          required
           placeholder="Username"
           value={this.state.user.username}
           onChange={this.updateUsername}
@@ -75,6 +80,7 @@ class RegisterForm extends React.Component<
           name="username"
         />
         <input
+          required
           placeholder="Password"
           value={this.state.user.password}
           onChange={this.updatePassword}
@@ -84,6 +90,7 @@ class RegisterForm extends React.Component<
           name="password"
         />
         <input
+          required
           placeholder="Renter Password"
           value={this.state.rePassword}
           onChange={this.updateRePassword}
@@ -93,7 +100,7 @@ class RegisterForm extends React.Component<
           maxLength={30}
           name="renterpassword"
         />
-        <input type="submit" value="Submit" />
+        <input required type="submit" value="Submit" />
       </form>
     );
 
@@ -112,6 +119,10 @@ class RegisterForm extends React.Component<
     return (
       <div className="RegisterForm">
         <h2>Register</h2>
+        <span>
+          (Only if you want to host
+          <br /> tournaments)
+        </span>
         {form}
         {emailMatch}
         {passwordMatch}
