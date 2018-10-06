@@ -1,10 +1,10 @@
 const express = require("express");
 
 const app = express();
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const jwt = require('./_helpers/jwt');
-const errorHandler = require('./_helpers/error-handler');
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const jwt = require("./_helpers/jwt");
+const errorHandler = require("./_helpers/error-handler");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -15,7 +15,8 @@ const port = process.env.PORT || 5000;
 app.use(jwt());
 
 // api routes
-app.use('/users', require('./users/users.controller'));
+app.use("/users", require("./users/users.controller"));
+app.use("/tournaments", require("./tournaments/tournaments.controller"));
 
 // global error handler
 app.use(errorHandler);

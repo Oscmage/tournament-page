@@ -4,6 +4,7 @@ import "../css/Input.css";
 class Input extends React.Component<
   {
     name: string;
+    description: string;
     type: string;
     placeholder?: string;
     minLength?: number;
@@ -15,7 +16,7 @@ class Input extends React.Component<
 > {
   public render() {
     const {
-      name,
+      description,
       type,
       placeholder,
       required,
@@ -25,6 +26,7 @@ class Input extends React.Component<
     } = this.props;
     const input = required ? (
       <input
+        name={this.props.name}
         required
         type={type}
         placeholder={placeholder}
@@ -34,6 +36,7 @@ class Input extends React.Component<
       />
     ) : (
       <input
+        name={this.props.name}
         type={type}
         placeholder={placeholder}
         minLength={minLength}
@@ -43,7 +46,7 @@ class Input extends React.Component<
     );
     return (
       <div className="Input">
-        <span>{name}</span>
+        <span>{description}</span>
         {input}
       </div>
     );
