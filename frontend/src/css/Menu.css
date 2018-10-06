@@ -25,22 +25,25 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.5rem 1rem;
+  padding: 0.3125rem 1rem;
 }
 
-.LoginContainer  {
+.LoginContainer {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .Login {
   position: fixed;
   right: 0;
+  top: 50px;
 }
 
 .Logout {
   position: fixed;
   right: 0;
+  top: 50px;
 }
 
 .Avatar {

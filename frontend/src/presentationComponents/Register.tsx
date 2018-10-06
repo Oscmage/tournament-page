@@ -3,6 +3,7 @@ import IRegisterUser from "./../interface/User";
 import RegisterForm from "./RegisterForm";
 import { Registration } from "../interface/State";
 import "../css/Register.css";
+import Card from "./Card";
 
 class Register extends React.Component<
   {
@@ -20,7 +21,9 @@ class Register extends React.Component<
     if (!reg) {
       return (
         <div className="Register">
-          <RegisterForm onRegister={this.props.onRegister} />
+          <Card>
+            <RegisterForm onRegister={this.props.onRegister} />
+          </Card>
         </div>
       );
     } else {

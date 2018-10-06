@@ -1,11 +1,12 @@
 import "./App.css";
 import "./css/Main.css";
 import * as React from "react";
-import FirstPage from "./presentationComponents/FirstPage";
+import Home from "./presentationComponents/Home";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./presentationComponents/Dashboard";
 import PrivateRoute from "./presentationComponents/PrivateRoute";
 import { MenuContainer } from "./containerComponents/Menu";
+import { RegisterContainer } from "./containerComponents/Register";
 
 class App extends React.Component {
   public render() {
@@ -14,7 +15,8 @@ class App extends React.Component {
         <div>
           <MenuContainer />
           <Switch>
-            <Route exact path="/" component={FirstPage} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/register" component={RegisterContainer} />
             <PrivateRoute path="/dashboard" component={Dashboard} />
           </Switch>
         </div>
