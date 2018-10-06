@@ -1,5 +1,5 @@
 const db = require("./../_helpers/db.js");
-const Tournament = db.Tournament;
+const { Tournament, User } = db;
 
 module.exports = {
   getAll,
@@ -10,7 +10,6 @@ module.exports = {
 };
 
 async function getAll() {
-  return ["Hello"];
   return await Tournament.find();
 }
 
@@ -18,41 +17,42 @@ async function getById(id) {
   return await Tournament.findById(id);
 }
 
-async function create(tournamentParam) {
+async function create(tournamentParams) {
+  console.log(tournamentParams);
   // validate
-  if (await User.findOne({ username: tournamentParam.creator })) {
-    if (!tournamentParam.name) {
+  if (await User.findOne({ _id: tournamentParams.creator })) {
+    if (!tournamentParams.name) {
       throw "Need a tournament name";
     }
 
-    if (!tournamentParam.description) {
+    if (!tournamentParams.description) {
       throw "Need a tournament description";
     }
 
-    if (!tournamentParam.date) {
+    if (!tournamentParams.date) {
       throw "Need a tournament date";
     }
 
-    if (!tournamentParam.registerDeadline) {
+    if (!tournamentParams.registerDeadline) {
       throw "Need a tournament register deadline";
     }
 
-    if (!tournamentParam.maxTeams) {
+    if (!tournamentParams.maxTeams) {
       throw "Need a tournament max amount of teams";
     }
 
-    const tournament = new Tournament(tournamentParam);
+    const tournament = new Tournament(tournamentParams);
 
     // save tournament
     await tournament.save();
   } else {
     throw 'Username "' +
-      userParam.username +
+      tournamentParams.creator +
       '" does not exist, register before creating a tournament';
   }
 }
 
-async function update(id, tournamentParam) {}
+async function update(id, tournamentParams) {}
 
 async function _delete(id) {
   await Tournament.findByIdAndRemove(id);

@@ -21,10 +21,10 @@ function create(req, res, next) {
 
 function getAll(req, res, next) {
   console.log("Get all requested");
-  tournamentService.getAll().then(() => res.json("Whoho"));
-  /*.then(users => res.json(users))
+  tournamentService
+    .getAll()
+    .then(users => res.json(users))
     .catch(err => next(err));
-    */
 }
 
 function getCurrent(req, res, next) {
