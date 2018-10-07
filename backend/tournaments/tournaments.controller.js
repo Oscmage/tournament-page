@@ -13,8 +13,10 @@ router.delete("/:id", _delete);
 module.exports = router;
 
 function create(req, res, next) {
+  // Important, we need the id from the jwt to verify
+  const id = req.user.sub;
   tournamentService
-    .create(req.body)
+    .create(id, req.body)
     .then(() => res.json({}))
     .catch(err => next(err));
 }

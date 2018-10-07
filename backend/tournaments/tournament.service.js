@@ -17,8 +17,10 @@ async function getById(id) {
   return await Tournament.findById(id);
 }
 
-async function create(tournamentParams) {
-  console.log(tournamentParams);
+async function create(id, tournamentParams) {
+  if (id !== tournamentParams.creator) {
+    throw "Can't create a tournament for some other user";
+  }
   // validate
   if (await User.findOne({ _id: tournamentParams.creator })) {
     if (!tournamentParams.name) {
