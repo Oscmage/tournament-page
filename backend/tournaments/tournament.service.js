@@ -10,7 +10,9 @@ module.exports = {
 };
 
 async function getAll() {
-  return await Tournament.find();
+  const tournaments = await Tournament.find();
+  // TODO (Remove sensitive data if there is some)
+  return tournaments;
 }
 
 async function getById(id) {

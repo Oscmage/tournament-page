@@ -22,10 +22,9 @@ function create(req, res, next) {
 }
 
 function getAll(req, res, next) {
-  console.log("Get all requested");
   tournamentService
     .getAll()
-    .then(users => res.json(users))
+    .then(tournaments => res.json(tournaments))
     .catch(err => next(err));
 }
 
