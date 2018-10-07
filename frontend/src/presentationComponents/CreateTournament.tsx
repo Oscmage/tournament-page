@@ -3,6 +3,7 @@ import "../css/CreateTournament.css";
 import Card from "./Card";
 import Input from "./Input";
 import ICreateTournament from "../interface/Tournament";
+import Datetime from "react-datetime";
 
 class CreateTournament extends React.Component<
   { onCreate: (tournamentParams: ICreateTournament) => void },
@@ -26,18 +27,7 @@ class CreateTournament extends React.Component<
                 <span>Description</span>
                 <textarea name="description" />
               </div>
-              <Input
-                name="date"
-                description="Date (When will it take place)"
-                type="date"
-                required={false}
-              />
-              <Input
-                name="date"
-                description="Time"
-                type="time"
-                required={false}
-              />
+              <Datetime />
               <Input
                 name="maxTeams"
                 description="Max amount of teams"
