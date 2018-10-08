@@ -1,13 +1,12 @@
 import ICreateTournament from "../interface/Tournament";
 import { authHeader } from "../helpers/AuthHeader";
+import { TournamentCreation } from "../interface/State";
+import { handleResponse } from "../helpers/Api";
 
 export function createTournament(tournament: ICreateTournament): any {
   // Try to register tournament
   return (dispatch: any) => {
-    dispatch(() => {
-      // TODO
-      return { type: "CREATE TOURNAMENT REQUESTED" };
-    });
+    dispatch(createTournamentRequest());
     const head = { ...{ "Content-Type": "application/json" }, ...authHeader() };
     const requestOptions = {
       method: "POST",
@@ -16,34 +15,30 @@ export function createTournament(tournament: ICreateTournament): any {
     };
 
     return fetch("/tournaments/create", requestOptions)
-      .then(handleResponse) // Add dispatch(registerFailure())
+      .then(handleResponse)
       .then(() => {
-        dispatch(createTournamentSuccessful());
+        dispatch(createTournamentSuccess());
+      })
+      .catch(() => {
+        dispatch(createTournamentFail());
       });
   };
 }
 
-// TODO ....
-function createTournamentSuccessful() {
+function createTournamentRequest() {
   return {
-    type: "Create tournament successful"
+    type: TournamentCreation.REQUEST
   };
 }
 
-// TODO (Oscar) move to separate file
-function handleResponse(response: any) {
-  return response.text().then((text: string) => {
-    const data = text && JSON.parse(text);
-    if (!response.ok) {
-      if (response.status === 401) {
-        // auto logout if 401 response returned from api
-        location.reload(true);
-      }
+function createTournamentSuccess() {
+  return {
+    type: TournamentCreation.SUCCESS
+  };
+}
 
-      const error = (data && data.message) || response.statusText;
-      return Promise.reject(error);
-    }
-
-    return data;
-  });
+function createTournamentFail() {
+  return {
+    type: TournamentCreation.FAILURE
+  };
 }
