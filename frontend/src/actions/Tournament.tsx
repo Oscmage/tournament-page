@@ -1,17 +1,20 @@
 import ICreateTournament from "../interface/Tournament";
+import { authHeader } from "../helpers/AuthHeader";
 
-export function createTournament(user: ICreateTournament): any {
-  // Try to register user
+export function createTournament(tournament: ICreateTournament): any {
+  // Try to register tournament
   return (dispatch: any) => {
     dispatch(() => {
       // TODO
       return { type: "CREATE TOURNAMENT REQUESTED" };
     });
+    const head = { ...{ "Content-Type": "application/json" }, ...authHeader() };
     const requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user)
+      headers: head,
+      body: JSON.stringify(tournament)
     };
+
     return fetch("/tournaments/create", requestOptions)
       .then(handleResponse) // Add dispatch(registerFailure())
       .then(() => {

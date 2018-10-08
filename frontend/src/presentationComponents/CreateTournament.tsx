@@ -1,14 +1,36 @@
 import * as React from "react";
 import "../css/CreateTournament.css";
+import "../css/DatePicker.css";
 import Card from "./Card";
 import Input from "./Input";
 import ICreateTournament from "../interface/Tournament";
-import Datetime from "react-datetime";
+import * as Datetime from "react-datetime";
+import * as moment from "moment";
 
 class CreateTournament extends React.Component<
-  { onCreate: (tournamentParams: ICreateTournament) => void },
-  {}
+  { onCreate: (tournamentParams: ICreateTournament) => void; creator: string },
+  {
+    name: string;
+    description: string;
+    date: moment.Moment;
+    registerDeadline: moment.Moment;
+    maxTeams: number;
+    admins: [];
+    available: boolean;
+  }
 > {
+  public constructor(props: any) {
+    super(props);
+    this.state = {
+      name: "",
+      description: "",
+      date: moment(),
+      registerDeadline: moment(),
+      maxTeams: 100,
+      admins: [],
+      available: true
+    };
+  }
   public render() {
     return (
       <div className="CreateTournament">
@@ -18,35 +40,51 @@ class CreateTournament extends React.Component<
             <form onSubmit={this.onSubmit}>
               <Input
                 name="name"
+                value={this.state.name}
+                onChange={this.updateName}
                 description="Name of Tournament"
                 type="text"
-                required={false}
+                required={true}
                 minLength={4}
               />
               <div className="Input">
                 <span>Description</span>
-                <textarea name="description" />
+                <textarea
+                  value={this.state.description}
+                  onChange={this.updateDescription}
+                  required
+                  name="description"
+                />
               </div>
-              <Datetime />
+              <div className="Input">
+                <span>Tournament Date</span>
+                <Datetime
+                  value={this.state.date}
+                  onChange={this.updateDate}
+                  className="Input"
+                />
+              </div>
               <Input
+                value={this.state.maxTeams}
+                onChange={this.updateMaxTeams}
                 name="maxTeams"
+                min={2}
+                max={10000}
                 description="Max amount of teams"
                 type="number"
-                required={false}
+                required={true}
               />
-              <Input
-                name="registerDeadline"
-                description="Date to last register"
-                type="date"
-                required={false}
-              />
-              <Input
-                name="registerDeadline"
-                description="Time to last register"
-                type="time"
-                required={false}
-              />
-              <input type="submit" />
+              <div className="Input">
+                <span>Register Deadline</span>
+                <Datetime
+                  value={this.state.registerDeadline}
+                  onChange={this.updateRegisterDeadline}
+                  className="Input"
+                />
+              </div>
+              <div className="Input">
+                <input className="Input" type="submit" />
+              </div>
             </form>
           </div>
         </Card>
@@ -54,17 +92,67 @@ class CreateTournament extends React.Component<
     );
   }
 
-  private onSubmit = () => {
+  private updateName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      ...this.state,
+      name: event.target.value
+    });
+  };
+
+  private updateDescription = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    this.setState({
+      ...this.state,
+      description: event.target.value
+    });
+  };
+
+  private updateMaxTeams = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const maxTeams = parseInt(event.target.value, 10);
+    this.setState({
+      ...this.state,
+      maxTeams
+    });
+  };
+
+  private updateDate = (date: moment.Moment) => {
+    this.setState({
+      ...this.state,
+      date
+    });
+  };
+
+  private updateRegisterDeadline = (date: moment.Moment) => {
+    this.setState({
+      ...this.state,
+      registerDeadline: date
+    });
+  };
+
+  private onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const {
+      name,
+      description,
+      date,
+      registerDeadline,
+      maxTeams,
+      admins,
+      available
+    } = this.state;
+    const { creator } = this.props;
     const tournamentParams: ICreateTournament = {
-      creator: "oscmage",
-      name: "test",
-      description: "Test",
-      date: new Date(),
-      registerDeadline: new Date(),
-      maxTeams: 10,
-      admin: [],
-      available: true
+      creator,
+      name,
+      description,
+      date,
+      registerDeadline,
+      maxTeams,
+      admins,
+      available
     };
+    console.log(tournamentParams);
     this.props.onCreate(tournamentParams);
   };
 }

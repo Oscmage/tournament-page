@@ -21,5 +21,5 @@ export interface IUser {
   firstName: string;
   lastName: string;
   username: string;
-  jwt: string;
+  token: string;
 }

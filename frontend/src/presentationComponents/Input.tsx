@@ -9,8 +9,12 @@ class Input extends React.Component<
     placeholder?: string;
     minLength?: number;
     maxLength?: number;
+    min?: number;
+    max?: number;
     pattern?: string;
     required: boolean;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    value: any;
   },
   {}
 > {
@@ -22,13 +26,21 @@ class Input extends React.Component<
       required,
       minLength,
       maxLength,
-      pattern
+      pattern,
+      value,
+      onChange,
+      min,
+      max
     } = this.props;
     const input = required ? (
       <input
         name={this.props.name}
         required
         type={type}
+        min={min}
+        max={max}
+        onChange={onChange}
+        value={value}
         placeholder={placeholder}
         minLength={minLength}
         maxLength={maxLength}
@@ -38,6 +50,10 @@ class Input extends React.Component<
       <input
         name={this.props.name}
         type={type}
+        min={min}
+        max={max}
+        onChange={onChange}
+        value={value}
         placeholder={placeholder}
         minLength={minLength}
         maxLength={maxLength}

@@ -1,11 +1,13 @@
+import * as moment from "moment";
+
 export default interface ICreateTournament {
   creator: string;
   name: string;
   description: string;
-  date: Date;
-  registerDeadline: Date;
+  date: moment.Moment;
+  registerDeadline: moment.Moment;
   maxTeams: number;
-  admin: [];
+  admins: [];
   available: boolean;
 }
 

@@ -14,7 +14,8 @@ const tournamentSchema = new Schema({
   maxTeams: { type: Number, required: true },
   admins: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], // List of user ids
   teams: [],
-  available: { type: Boolean, required: true }
+  available: { type: Boolean, required: true },
+  createdDate: { type: Date, default: Date.now }
 });
 
 /* Should be inside teams

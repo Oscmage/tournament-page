@@ -8,9 +8,6 @@ export function getUserFromStorage(): any | null {
     // Change id_ to id
     user.id = user._id;
     delete user._id;
-    // Change token to jwt
-    user.jwt = user.token;
-    delete user.token;
   }
 
   return user;

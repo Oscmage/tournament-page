@@ -7,6 +7,7 @@ export function authHeader() {
   if (user && user.token) {
     return { Authorization: "Bearer " + user.token };
   } else {
-    return {};
+    // This will obviously fail
+    return { Authorization: "Bearer " + "None" };
   }
 }

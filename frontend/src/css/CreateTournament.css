@@ -8,10 +8,17 @@
 }
 
 .CreateTournament {
-  color: #ebebeb;
   width: 35vh;
+}
+
+.CreateTournament h2 {
+  color: #ebebeb;
 }
 
 .CreateTournamentInner h2 {
   text-align: left;
+}
+
+.CreateTournament form {
+  width: 100%;
 }
