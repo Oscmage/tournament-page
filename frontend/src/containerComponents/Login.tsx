@@ -4,8 +4,12 @@ import Login from "./../presentationComponents/Login";
 import { withRouter } from "react-router-dom";
 
 const mapDispatchToProps = (dispatch: any) => ({
-  onLogin: (username: string, password: string): Promise<boolean> => {
-    return dispatch(login(username, password));
+  onLogin: (
+    username: string,
+    password: string,
+    history: any
+  ): Promise<boolean> => {
+    return dispatch(login(username, password, history));
   },
   onLogout: (history: any) => {
     dispatch(logout(history));

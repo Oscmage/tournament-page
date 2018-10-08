@@ -66,7 +66,7 @@ function requestLogin() {
   };
 }
 
-export function login(username: string, password: string) {
+export function login(username: string, password: string, history: any) {
   // Try to login
   return (dispatch: any) => {
     dispatch(requestLogin());
@@ -83,7 +83,9 @@ export function login(username: string, password: string) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem("user", JSON.stringify(user));
         }
+
         dispatch(loginSuccesful(user));
+        history.push("/dashboard");
         return Promise.resolve(true);
       });
   };

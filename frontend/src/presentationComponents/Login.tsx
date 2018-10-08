@@ -6,7 +6,11 @@ import "../css/Login.css";
 
 class Login extends React.Component<
   {
-    onLogin: (username: string, password: string) => Promise<boolean>;
+    onLogin: (
+      username: string,
+      password: string,
+      history: any
+    ) => Promise<boolean>;
     onLogout: (history: any) => void;
     loggedIn: boolean;
     user: IUser;
@@ -36,9 +40,7 @@ class Login extends React.Component<
   }
 
   private onLogin = (username: string, password: string): Promise<boolean> => {
-    return this.props.onLogin(username, password).then(() => {
-      return Promise.resolve(true);
-    });
+    return this.props.onLogin(username, password, this.props.history);
   };
 
   private onLogout = () => {
