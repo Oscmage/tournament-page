@@ -8,7 +8,16 @@ class TournamentList extends React.Component<
 > {
   public render() {
     const tournamentList = this.props.tournamentList.map(tournament => (
-      <li key={tournament._id}>{tournament.name}</li>
+      <li key={tournament._id}>
+        <h3>{tournament.name}</h3>
+        <p>Description: {tournament.description}</p>
+        <p>Date: {tournament.date.format("YYYY-MM-DD, hh:mm")}</p>
+        <p>
+          Register deadline:{" "}
+          {tournament.registerDeadline.format("YYYY-MM-DD, hh:mm")}
+        </p>
+        <p>Max amount of teams: {tournament.maxTeams}</p>
+      </li>
     ));
 
     return (

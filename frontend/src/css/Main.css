@@ -104,3 +104,7 @@ form {
 span {
   color: #ebebeb;
 }
+
+ul {
+  list-style-type: none;
+}

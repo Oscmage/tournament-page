@@ -6,6 +6,7 @@ import {
 import { authHeader } from "../helpers/AuthHeader";
 import { tournamentCreation } from "../interface/Tournament";
 import { handleResponse } from "../helpers/Api";
+import * as moment from "moment";
 
 // CREATE A NEW TOURNAMENT
 
@@ -64,6 +65,10 @@ export function fetchTournaments() {
     return fetch("/tournaments", requestOptions)
       .then(handleResponse)
       .then(tournaments => {
+        tournaments.map((tournament: ITournament) => {
+          tournament.date = moment(tournament.date);
+          tournament.registerDeadline = moment(tournament.registerDeadline);
+        });
         dispatch(fetchTournamentsSuccess(tournaments));
       })
       .catch(() => {
