@@ -1,3 +1,9 @@
 .Dashboard {
   padding: 5rem 2rem 2rem 2rem;
+  background-image: url("../img/fortnite.jpg");
+  background-size: cover;
+}
+
+.Dashboard .Card {
+  background-color: rgba(42, 45, 52, 1);
 }
