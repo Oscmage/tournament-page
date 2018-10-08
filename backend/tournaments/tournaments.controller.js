@@ -5,7 +5,6 @@ const tournamentService = require("./tournament.service");
 // routes
 router.post("/create", create);
 router.get("/", getAll);
-router.get("/current", getCurrent);
 router.get("/:id", getById);
 router.put("/:id", update);
 router.delete("/:id", _delete);
@@ -25,13 +24,6 @@ function getAll(req, res, next) {
   tournamentService
     .getAll()
     .then(tournaments => res.json(tournaments))
-    .catch(err => next(err));
-}
-
-function getCurrent(req, res, next) {
-  tournamentService
-    .getById(req.user.sub)
-    .then(user => (user ? res.json(user) : res.sendStatus(404)))
     .catch(err => next(err));
 }
 

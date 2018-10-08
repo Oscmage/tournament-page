@@ -1,7 +1,13 @@
-import { ITournament, ICreateTournament } from "../interface/Tournament";
+import {
+  ITournament,
+  ICreateTournament,
+  tournamentsFetch
+} from "../interface/Tournament";
 import { authHeader } from "../helpers/AuthHeader";
-import { TournamentCreation } from "../interface/State";
+import { tournamentCreation } from "../interface/Tournament";
 import { handleResponse } from "../helpers/Api";
+
+// CREATE A NEW TOURNAMENT
 
 export function createTournament(tournament: ICreateTournament): any {
   // Try to register tournament
@@ -27,26 +33,28 @@ export function createTournament(tournament: ICreateTournament): any {
 
 function createTournamentRequest() {
   return {
-    type: TournamentCreation.REQUEST
+    type: tournamentCreation.REQUEST
   };
 }
 
 function createTournamentSuccess() {
   return {
-    type: TournamentCreation.SUCCESS
+    type: tournamentCreation.SUCCESS
   };
 }
 
 function createTournamentFail() {
   return {
-    type: TournamentCreation.FAILURE
+    type: tournamentCreation.FAILURE
   };
 }
+
+// GET TOURNAMENTS
 
 export function fetchTournaments() {
   // Try to fetch tournaments
   return (dispatch: any) => {
-    dispatch(fetchTournamentRequest());
+    dispatch(fetchTournamentsRequest());
     const head = { ...{ "Content-Type": "application/json" }, ...authHeader() };
     const requestOptions = {
       method: "GET",
@@ -56,33 +64,29 @@ export function fetchTournaments() {
     return fetch("/tournaments", requestOptions)
       .then(handleResponse)
       .then(tournaments => {
-        dispatch(fetchTournamentSuccess(tournaments));
+        dispatch(fetchTournamentsSuccess(tournaments));
       })
       .catch(() => {
-        dispatch(fetchTournamentFail());
+        dispatch(fetchTournamentsFailure());
       });
   };
 }
 
-function fetchTournamentRequest() {
+function fetchTournamentsRequest() {
   return {
-    type: fetchTournamentsRequest
+    type: tournamentsFetch.REQUEST
   };
 }
 
-function fetchTournamentSuccess(tournaments: ITournament[]) {
+function fetchTournamentsSuccess(tournaments: ITournament[]) {
   return {
-    type: fetchTournamentsSuccess,
+    type: tournamentsFetch.SUCCESS,
     tournaments
   };
 }
 
-function fetchTournamentFail() {
+function fetchTournamentsFailure() {
   return {
-    type: fetchTournamentsFail
+    type: tournamentsFetch.FAILURE
   };
 }
-
-export const fetchTournamentsRequest = "FETCH TOURNAMENT REQUEST";
-export const fetchTournamentsSuccess = "FETCH TOURNAMENT SUCCESS";
-export const fetchTournamentsFail = "FETCH TOURNAMENT FAIL";

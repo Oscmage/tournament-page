@@ -9,7 +9,6 @@ class TournamentListContainer extends React.Component<
   {}
 > {
   public componentDidMount() {
-    console.log("Did mount");
     this.props.fetchTournaments();
   }
 
@@ -25,7 +24,8 @@ const mapDispatchToProps = (dispatch: any) => ({
 });
 
 const mapStateToProp = (state: any) => {
-  return { tournamentList: state.tournamentCreation.tournaments };
+  const tournaments = state.tournaments;
+  return { tournamentList: tournaments.tournaments };
 };
 
 export default connect(

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import IRegisterUser from "./../interface/User";
+import { IRegisterUser } from "./../interface/User";
 import { register } from "./../actions/User";
 import Register from "./../presentationComponents/Register";
 

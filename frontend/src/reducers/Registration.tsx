@@ -1,4 +1,4 @@
-import { Registration } from "./../interface/State";
+import { Registration } from "./../interface/User";
 
 export default function registration(state = {}, action: any) {
   switch (action.type) {

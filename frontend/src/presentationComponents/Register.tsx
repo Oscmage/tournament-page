@@ -1,7 +1,6 @@
 import * as React from "react";
-import IRegisterUser from "./../interface/User";
+import { IRegisterUser, Registration } from "./../interface/User";
 import RegisterForm from "./RegisterForm";
-import { Registration } from "../interface/State";
 import "../css/Register.css";
 import Card from "./Card";
 

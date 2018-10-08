@@ -6,13 +6,13 @@ import Input from "./Input";
 import { ICreateTournament } from "../interface/Tournament";
 import * as Datetime from "react-datetime";
 import * as moment from "moment";
-import { TournamentCreation } from "../interface/State";
+import { tournamentCreation } from "../interface/Tournament";
 
 class CreateTournament extends React.Component<
   {
     onCreate: (tournamentParams: ICreateTournament) => void;
     creator: string;
-    creationStatus?: TournamentCreation;
+    creationStatus?: tournamentCreation;
   },
   {
     name: string;
@@ -100,15 +100,13 @@ class CreateTournament extends React.Component<
     );
   }
 
-  private getStatusHtml = (status: TournamentCreation | undefined) => {
-    console.log("status");
-    console.log(status);
+  private getStatusHtml = (status: tournamentCreation | undefined) => {
     switch (status) {
-      case TournamentCreation.REQUEST:
+      case tournamentCreation.REQUEST:
         return <span>Nice spinner for loading...</span>;
-      case TournamentCreation.SUCCESS:
+      case tournamentCreation.SUCCESS:
         return <span>Success! Good luck with the tournament!</span>;
-      case TournamentCreation.FAILURE:
+      case tournamentCreation.FAILURE:
         return <span>Something went wrong :'(</span>;
       default:
         return "";

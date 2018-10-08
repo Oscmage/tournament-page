@@ -24,17 +24,22 @@ export interface ITournament {
   available: boolean;
 }
 
-/*
- creator: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true
-  }, // user id
-  name: { type: String, required: true },
-  description: { type: String, required: true },
-  date: { type: Date, required: true },
-  registerDeadline: { type: Date, required: true },
-  maxTeams: { type: Number, required: true },
-  admins: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], // List of user ids
-  teams: [],
-  available: { type: Boolean, required: true }*/
+export interface IRegisterTournament {
+  _id: string;
+  captainName: string;
+  email: string;
+  igns: string[];
+  discordNames: string[];
+}
+
+export enum tournamentCreation {
+  REQUEST = "TOURNAMENT CREATION REQUEST",
+  SUCCESS = "TOURNAMENT CREATION SUCCESS",
+  FAILURE = "TOURNAMENT CREATION FAILURE"
+}
+
+export enum tournamentsFetch {
+  REQUEST = "FETCH TOURNAMENT REQUEST",
+  SUCCESS = "FETCH TOURNAMENT SUCCESS",
+  FAILURE = "FETCH TOURNAMENT FAIL"
+}

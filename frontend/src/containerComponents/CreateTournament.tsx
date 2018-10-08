@@ -12,7 +12,7 @@ const mapDispatchToProps = (dispatch: any) => ({
 const mapStateToProps = (state: any) => {
   return {
     creator: state.authentication.user.id,
-    creationStatus: state.tournamentCreation.tournamentCreation
+    creationStatus: state.tournament.status
   };
 };
 export const CreateTournamentContainer = connect(

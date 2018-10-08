@@ -1,5 +1,4 @@
-import User from "./../interface/User";
-import { Registration } from "./../interface/State";
+import { IRegisterUser as User, Registration } from "./../interface/User";
 import { handleResponse } from "../helpers/Api";
 
 function requestRegister(user: User): any {

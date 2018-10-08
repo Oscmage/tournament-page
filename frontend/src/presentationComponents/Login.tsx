@@ -1,7 +1,7 @@
 import * as React from "react";
 import LoginForm from "./LoginForm";
 import { withRouter } from "react-router-dom";
-import { IUser } from "../interface/State";
+import { IUser } from "../interface/User";
 import "../css/Login.css";
 
 class Login extends React.Component<

@@ -3,7 +3,7 @@ import thunk from "redux-thunk";
 import { createStore, applyMiddleware } from "redux";
 
 const initialState = {
-  tournamentCreation: { tournaments: [] }
+  tournaments: { tournaments: [] }
 };
 export const store = createStore(
   rootReducer,

@@ -1,4 +1,9 @@
-import IRegisterUser from "./User";
+import { IRegisterUser, IUser, Registration } from "./User";
+import {
+  tournamentCreation,
+  ITournament,
+  tournamentsFetch
+} from "./Tournament";
 
 export interface IState {
   currentUser: {} | IUser;
@@ -8,28 +13,15 @@ export interface IState {
     | Registration.REQUEST
     | Registration.SUCCESS
     | Registration.FAILURE;
-  tournamentCreation:
-    | TournamentCreation.REQUEST
-    | TournamentCreation.SUCCESS
-    | TournamentCreation.FAILURE;
-}
-
-export enum Registration {
-  REQUEST = "REGISTRATION REQUEST",
-  SUCCESS = "REGISTRATION SUCCESS",
-  FAILURE = "REGISTRATION FAILURE"
-}
-
-export enum TournamentCreation {
-  REQUEST = "TOURNAMENT CREATION REQUEST",
-  SUCCESS = "TOURNAMENT CREATION SUCCESS",
-  FAILURE = "TOURNAMENT CREATION FAILURE"
-}
-
-export interface IUser {
-  id: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  token: string;
+  tournament: {
+    tournamentCreation:
+      | tournamentCreation.REQUEST
+      | tournamentCreation.SUCCESS
+      | tournamentCreation.FAILURE;
+    tournaments: ITournament[];
+    tournamentsFetch:
+      | tournamentsFetch.REQUEST
+      | tournamentsFetch.SUCCESS
+      | tournamentsFetch.FAILURE;
+  };
 }
