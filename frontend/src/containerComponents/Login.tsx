@@ -1,13 +1,14 @@
 import { connect } from "react-redux";
 import { login, logout } from "./../actions/User";
 import Login from "./../presentationComponents/Login";
+import { withRouter } from "react-router-dom";
 
 const mapDispatchToProps = (dispatch: any) => ({
   onLogin: (username: string, password: string): Promise<boolean> => {
     return dispatch(login(username, password));
   },
-  onLogout: () => {
-    dispatch(logout());
+  onLogout: (history: any) => {
+    dispatch(logout(history));
   }
 });
 
@@ -18,7 +19,7 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-export const LoginContainer = connect(
+export const LoginContainer = withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login);
+)(Login) as any);

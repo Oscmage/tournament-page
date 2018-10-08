@@ -7,9 +7,10 @@ import "../css/Login.css";
 class Login extends React.Component<
   {
     onLogin: (username: string, password: string) => Promise<boolean>;
-    onLogout: () => void;
+    onLogout: (history: any) => void;
     loggedIn: boolean;
     user: IUser;
+    history: any; // The history received from withRouter
   },
   {}
 > {
@@ -22,7 +23,7 @@ class Login extends React.Component<
     if (this.props.user) {
       return (
         <div className="Logout">
-          <button onClick={this.props.onLogout}>Logout</button>
+          <button onClick={this.onLogout}>Logout</button>
         </div>
       );
     } else {
@@ -38,6 +39,10 @@ class Login extends React.Component<
     return this.props.onLogin(username, password).then(() => {
       return Promise.resolve(true);
     });
+  };
+
+  private onLogout = () => {
+    this.props.onLogout(this.props.history);
   };
 }
 

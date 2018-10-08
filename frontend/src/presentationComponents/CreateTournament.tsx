@@ -90,7 +90,7 @@ class CreateTournament extends React.Component<
                 />
               </div>
               <div className="Input">
-                <input className="Input" type="submit" />
+                <input className="Input" type="submit" value="Create" />
               </div>
               <div className="CreationResult">{status}</div>
             </form>

@@ -89,10 +89,11 @@ export function login(username: string, password: string) {
   };
 }
 
-export function logout() {
+export function logout(history: any) {
   return (dispatch: any) => {
     // remove user from local storage to log user out
     localStorage.removeItem("user");
+    history.push("/"); // Redirect to home page when logout
     dispatch({ type: LOGOUT });
   };
 }
