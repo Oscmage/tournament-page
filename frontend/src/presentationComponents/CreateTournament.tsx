@@ -3,7 +3,7 @@ import "../css/CreateTournament.css";
 import "../css/DatePicker.css";
 import Card from "./Card";
 import Input from "./Input";
-import ICreateTournament from "../interface/Tournament";
+import { ICreateTournament } from "../interface/Tournament";
 import * as Datetime from "react-datetime";
 import * as moment from "moment";
 import { TournamentCreation } from "../interface/State";

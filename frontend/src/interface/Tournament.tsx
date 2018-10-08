@@ -1,6 +1,6 @@
 import * as moment from "moment";
 
-export default interface ICreateTournament {
+export interface ICreateTournament {
   creator: string;
   name: string;
   description: string;
@@ -8,6 +8,19 @@ export default interface ICreateTournament {
   registerDeadline: moment.Moment;
   maxTeams: number;
   admins: [];
+  available: boolean;
+}
+
+export interface ITournament {
+  _id: string;
+  creator: string;
+  name: string;
+  description: string;
+  date: moment.Moment;
+  registerDeadline: moment.Moment;
+  maxTeams: number;
+  admins: [];
+  teams: [];
   available: boolean;
 }
 

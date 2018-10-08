@@ -11,6 +11,7 @@ module.exports = {
 
 async function getAll() {
   const tournaments = await Tournament.find();
+  console.log("Got here ");
   // TODO (Remove sensitive data if there is some)
   return tournaments;
 }
