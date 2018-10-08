@@ -6,9 +6,14 @@ import Input from "./Input";
 import ICreateTournament from "../interface/Tournament";
 import * as Datetime from "react-datetime";
 import * as moment from "moment";
+import { TournamentCreation } from "../interface/State";
 
 class CreateTournament extends React.Component<
-  { onCreate: (tournamentParams: ICreateTournament) => void; creator: string },
+  {
+    onCreate: (tournamentParams: ICreateTournament) => void;
+    creator: string;
+    creationStatus?: TournamentCreation;
+  },
   {
     name: string;
     description: string;
@@ -32,6 +37,8 @@ class CreateTournament extends React.Component<
     };
   }
   public render() {
+    const { creationStatus } = this.props;
+    const status = this.getStatusHtml(creationStatus);
     return (
       <div className="CreateTournament">
         <Card>
@@ -85,12 +92,28 @@ class CreateTournament extends React.Component<
               <div className="Input">
                 <input className="Input" type="submit" />
               </div>
+              <div className="CreationResult">{status}</div>
             </form>
           </div>
         </Card>
       </div>
     );
   }
+
+  private getStatusHtml = (status: TournamentCreation | undefined) => {
+    console.log("status");
+    console.log(status);
+    switch (status) {
+      case TournamentCreation.REQUEST:
+        return <span>Nice spinner for loading...</span>;
+      case TournamentCreation.SUCCESS:
+        return <span>Success! Good luck with the tournament!</span>;
+      case TournamentCreation.FAILURE:
+        return <span>Something went wrong :'(</span>;
+      default:
+        return "";
+    }
+  };
 
   private updateName = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
@@ -152,7 +175,6 @@ class CreateTournament extends React.Component<
       admins,
       available
     };
-    console.log(tournamentParams);
     this.props.onCreate(tournamentParams);
   };
 }

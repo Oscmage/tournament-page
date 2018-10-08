@@ -55,6 +55,18 @@ button:hover {
   color: rgba(42, 45, 52, 1);
 }
 
+input[type="submit"] {
+  transition: all 0.5s ease;
+  background-color: rgba(42, 45, 52, 1);
+  color: #ebebeb;
+}
+
+input[type="submit"]:hover {
+  cursor: pointer;
+  background-color: #ebebeb;
+  color: rgba(42, 45, 52, 1);
+}
+
 input,
 textarea {
   width: 100%;
@@ -87,4 +99,8 @@ form {
 .Page {
   width: 100%;
   height: 100%;
+}
+
+span {
+  color: #ebebeb;
 }
