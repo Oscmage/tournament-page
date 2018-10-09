@@ -39,6 +39,12 @@ export enum tournamentCreation {
 }
 
 export enum tournamentsFetch {
+  REQUEST = "FETCH TOURNAMENTS REQUEST",
+  SUCCESS = "FETCH TOURNAMENTS SUCCESS",
+  FAILURE = "FETCH TOURNAMENTS FAIL"
+}
+
+export enum tournamentFetch {
   REQUEST = "FETCH TOURNAMENT REQUEST",
   SUCCESS = "FETCH TOURNAMENT SUCCESS",
   FAILURE = "FETCH TOURNAMENT FAIL"

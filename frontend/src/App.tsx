@@ -7,6 +7,7 @@ import Dashboard from "./presentationComponents/Dashboard";
 import PrivateRoute from "./presentationComponents/PrivateRoute";
 import { MenuContainer } from "./containerComponents/Menu";
 import { RegisterContainer } from "./containerComponents/Register";
+import RegisterTournamentContainer from "./containerComponents/RegisterTournament";
 
 class App extends React.Component {
   public render() {
@@ -17,6 +18,11 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/register" component={RegisterContainer} />
+            <Route
+              exact
+              path="/tournaments/:id"
+              component={RegisterTournamentContainer}
+            />
             <PrivateRoute path="/dashboard" component={Dashboard} />
           </Switch>
         </div>

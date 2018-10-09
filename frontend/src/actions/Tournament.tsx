@@ -1,7 +1,8 @@
 import {
   ITournament,
   ICreateTournament,
-  tournamentsFetch
+  tournamentsFetch,
+  tournamentFetch
 } from "../interface/Tournament";
 import { authHeader } from "../helpers/AuthHeader";
 import { tournamentCreation } from "../interface/Tournament";
@@ -66,8 +67,7 @@ export function fetchTournaments() {
       .then(handleResponse)
       .then(tournaments => {
         tournaments.map((tournament: ITournament) => {
-          tournament.date = moment(tournament.date);
-          tournament.registerDeadline = moment(tournament.registerDeadline);
+          parseToMoment(tournament);
         });
         dispatch(fetchTournamentsSuccess(tournaments));
       })
@@ -93,5 +93,54 @@ function fetchTournamentsSuccess(tournaments: ITournament[]) {
 function fetchTournamentsFailure() {
   return {
     type: tournamentsFetch.FAILURE
+  };
+}
+
+export function fetchTournament(id: string) {
+  // Try to fetch tournament based on id
+  return (dispatch: any) => {
+    dispatch(fetchTournamentRequest(id));
+    const head = { ...{ "Content-Type": "application/json" }, ...authHeader() };
+    const requestOptions = {
+      method: "GET",
+      headers: head
+    };
+
+    return fetch(`/tournaments/${id}`, requestOptions)
+      .then(handleResponse)
+      .then((tournament: ITournament) => {
+        parseToMoment(tournament);
+        dispatch(fetchTournamentSuccess(id, tournament));
+      })
+      .catch(() => {
+        dispatch(fetchTournamentFailure(id));
+      });
+  };
+}
+
+function parseToMoment(tournament: ITournament): void {
+  tournament.date = moment(tournament.date);
+  tournament.registerDeadline = moment(tournament.registerDeadline);
+}
+
+function fetchTournamentRequest(id: string) {
+  return {
+    type: tournamentFetch.REQUEST,
+    id
+  };
+}
+
+function fetchTournamentSuccess(id: string, tournament: ITournament) {
+  return {
+    type: tournamentFetch.SUCCESS,
+    id,
+    tournament
+  };
+}
+
+function fetchTournamentFailure(id: string) {
+  return {
+    type: tournamentFetch.FAILURE,
+    id
   };
 }
