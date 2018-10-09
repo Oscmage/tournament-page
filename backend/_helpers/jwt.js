@@ -12,7 +12,7 @@ function jwt() {
       "/users/authenticate",
       "/users/register",
       "/tournaments",
-      "/tournaments/:id"
+      { url: new RegExp("^/tournaments/.*"), methods: ["GET"] }
     ]
   });
 }
