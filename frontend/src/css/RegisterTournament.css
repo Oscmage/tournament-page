@@ -1,0 +1,21 @@
+.RegisterTournament {
+  padding: 5rem 0 0 0;
+  color: #ebebeb;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-image: url("../img/thumb-1920-903580.png");
+  background-size: cover;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.RegisterTournament .Card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(42, 45, 52, 0.8);
+}
