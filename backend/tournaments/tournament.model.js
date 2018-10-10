@@ -1,6 +1,16 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const ign = new Schema({
+  name: { type: String, required: true }
+});
+
+const teamSchema = new Schema({
+  teamName: { type: String, required: true },
+  email: { type: String, required: true },
+  igns: [ign]
+});
+
 const tournamentSchema = new Schema({
   creator: {
     type: mongoose.Schema.Types.ObjectId,
@@ -13,19 +23,11 @@ const tournamentSchema = new Schema({
   registerDeadline: { type: Date, required: true },
   maxTeams: { type: Number, required: true },
   admins: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], // List of user ids
-  teams: [],
+  teams: [teamSchema],
   available: { type: Boolean, required: true },
+  type: { type: String, required: true }, // SOLO, DUO, SQUAD
   createdDate: { type: Date, default: Date.now }
 });
-
-/* Should be inside teams
-const teamSchema = new Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true },
-  members: [{ ign: String, required: true }],
-  acceptedIn: { type: Boolean }
-});
-*/
 
 tournamentSchema.set("toJSON", { virtuals: true });
 

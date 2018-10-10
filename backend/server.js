@@ -16,6 +16,7 @@ app.use(jwt());
 
 // api routes
 app.use("/users", require("./users/users.controller"));
+app.use("/tournament", require("./tournaments/tournament.controller"));
 app.use("/tournaments", require("./tournaments/tournaments.controller"));
 
 // global error handler

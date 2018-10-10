@@ -6,7 +6,7 @@ import Input from "./Input";
 import { ICreateTournament } from "../interface/Tournament";
 import * as Datetime from "react-datetime";
 import * as moment from "moment";
-import { tournamentCreation } from "../interface/Tournament";
+import { tournamentCreation, tournamentType } from "../interface/Tournament";
 
 class CreateTournament extends React.Component<
   {
@@ -22,6 +22,7 @@ class CreateTournament extends React.Component<
     maxTeams: number;
     admins: [];
     available: boolean;
+    type: tournamentType;
   }
 > {
   public constructor(props: any) {
@@ -33,7 +34,8 @@ class CreateTournament extends React.Component<
       registerDeadline: moment(),
       maxTeams: 100,
       admins: [],
-      available: true
+      available: true,
+      type: tournamentType.DUO
     };
   }
   public render() {
@@ -81,6 +83,24 @@ class CreateTournament extends React.Component<
                 type="number"
                 required={true}
               />
+              <div className="Input">
+                <span>Tournament type</span>
+                <select
+                  name="type"
+                  value={this.state.type}
+                  onChange={this.updateType}
+                >
+                  <option value={tournamentType.SOLO}>
+                    {tournamentType.SOLO}
+                  </option>
+                  <option value={tournamentType.DUO}>
+                    {tournamentType.DUO}
+                  </option>
+                  <option value={tournamentType.SQUAD}>
+                    {tournamentType.SQUAD}
+                  </option>
+                </select>
+              </div>
               <div className="Input">
                 <span>Register Deadline</span>
                 <Datetime
@@ -137,6 +157,25 @@ class CreateTournament extends React.Component<
     });
   };
 
+  private updateType = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    if (event.target.value === tournamentType.SOLO) {
+      this.setState({
+        ...this.state,
+        type: tournamentType.SOLO
+      });
+    } else if (event.target.value === tournamentType.DUO) {
+      this.setState({
+        ...this.state,
+        type: tournamentType.DUO
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        type: tournamentType.SQUAD
+      });
+    }
+  };
+
   private updateDate = (date: moment.Moment) => {
     this.setState({
       ...this.state,
@@ -160,7 +199,8 @@ class CreateTournament extends React.Component<
       registerDeadline,
       maxTeams,
       admins,
-      available
+      available,
+      type
     } = this.state;
     const { creator } = this.props;
     const tournamentParams: ICreateTournament = {
@@ -171,7 +211,8 @@ class CreateTournament extends React.Component<
       registerDeadline,
       maxTeams,
       admins,
-      available
+      available,
+      type
     };
     this.props.onCreate(tournamentParams);
   };

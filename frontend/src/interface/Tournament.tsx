@@ -9,6 +9,13 @@ export interface ICreateTournament {
   maxTeams: number;
   admins: [];
   available: boolean;
+  type: tournamentType;
+}
+
+export enum tournamentType {
+  SOLO = "SOLO",
+  DUO = "DUO",
+  SQUAD = "SQUAD"
 }
 
 export interface ITournament {
@@ -22,14 +29,13 @@ export interface ITournament {
   admins: [];
   teams: [];
   available: boolean;
+  type: tournamentType;
 }
 
 export interface IRegisterTournament {
-  _id: string;
-  captainName: string;
+  teamName: string;
   email: string;
-  igns: string[];
-  discordNames: string[];
+  igns: { name: string }[];
 }
 
 export enum tournamentCreation {

@@ -15,6 +15,7 @@ class TournamentSnapshot extends React.Component<
         <Card>
           <div className="TournamentSnapshot">
             <h3>{tournament.name}</h3>
+            <p>Type: {tournament.type}</p>
             <p>Description: {tournament.description}</p>
             <p>Date: {tournament.date.format("YYYY-MM-DD, hh:mm")}</p>
             <p>

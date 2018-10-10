@@ -3,18 +3,19 @@ import "../css/Input.css";
 
 class Input extends React.Component<
   {
+    required: boolean;
     name: string;
     description: string;
     type: string;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    value: any;
     placeholder?: string;
     minLength?: number;
     maxLength?: number;
     min?: number;
     max?: number;
     pattern?: string;
-    required: boolean;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    value: any;
+    idx?: string;
   },
   {}
 > {

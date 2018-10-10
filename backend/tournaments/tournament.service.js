@@ -6,6 +6,7 @@ module.exports = {
   getById,
   create,
   update,
+  register,
   delete: _delete
 };
 
@@ -54,6 +55,19 @@ async function create(id, tournamentParams) {
       tournamentParams.creator +
       '" does not exist, register before creating a tournament';
   }
+}
+
+async function register(id, teamInfo) {
+  const obj = await Tournament.findById(id, { teams: 1, _id: 0 });
+  let t = obj.teams;
+  t.forEach(element => {
+    if (element.teamName === teamInfo.teamName) {
+      throw "This team name already exists";
+    }
+  });
+
+  t.push(teamInfo);
+  await Tournament.update({ _id: id }, { $set: { teams: t } });
 }
 
 async function update(id, tournamentParams) {}

@@ -2,7 +2,8 @@ import {
   ITournament,
   ICreateTournament,
   tournamentsFetch,
-  tournamentFetch
+  tournamentFetch,
+  IRegisterTournament
 } from "../interface/Tournament";
 import { authHeader } from "../helpers/AuthHeader";
 import { tournamentCreation } from "../interface/Tournament";
@@ -22,7 +23,7 @@ export function createTournament(tournament: ICreateTournament): any {
       body: JSON.stringify(tournament)
     };
 
-    return fetch("/tournaments/create", requestOptions)
+    return fetch("/tournament/create", requestOptions)
       .then(handleResponse)
       .then(() => {
         dispatch(createTournamentSuccess());
@@ -106,7 +107,7 @@ export function fetchTournament(id: string) {
       headers: head
     };
 
-    return fetch(`/tournaments/${id}`, requestOptions)
+    return fetch(`/tournament/${id}`, requestOptions)
       .then(handleResponse)
       .then((tournament: ITournament) => {
         parseToMoment(tournament);
@@ -142,5 +143,21 @@ function fetchTournamentFailure(id: string) {
   return {
     type: tournamentFetch.FAILURE,
     id
+  };
+}
+
+export function registerTournament(id: string, info: IRegisterTournament) {
+  // Try to register for a tournament based on id
+  return (dispatch: any) => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(info)
+    };
+    dispatch({ type: "Something" });
+
+    return fetch(`/tournament/register/${id}`, requestOptions).then(
+      handleResponse
+    );
   };
 }

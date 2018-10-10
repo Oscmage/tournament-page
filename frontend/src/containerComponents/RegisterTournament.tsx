@@ -1,9 +1,10 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { fetchTournament } from "./../actions/Tournament";
+import { fetchTournament, registerTournament } from "./../actions/Tournament";
 import RegisterTournament from "../presentationComponents/RegisterTournament";
 import Spinner from "../presentationComponents/Spinner";
 import { withRouter } from "react-router-dom";
+import { IRegisterTournament } from "../interface/Tournament";
 
 class RegisterTournamentContainer extends React.Component<
   {
@@ -11,6 +12,7 @@ class RegisterTournamentContainer extends React.Component<
     tournament: any;
     match: any /*Match object from react router*/;
     history: any;
+    register: (id: string, info: IRegisterTournament) => Promise<any>;
   },
   {}
 > {
@@ -23,9 +25,13 @@ class RegisterTournamentContainer extends React.Component<
   public render() {
     const { tournament } = this.props;
     const { id } = this.props.match.params;
-    console.log(tournament);
-    if (tournament[id]) {
-      return <RegisterTournament tournament={tournament[id].tournament} />;
+    if (tournament[id] && tournament[id].tournament) {
+      return (
+        <RegisterTournament
+          register={this.props.register}
+          tournament={tournament[id].tournament}
+        />
+      );
     } else {
       return <Spinner />;
     }
@@ -35,12 +41,14 @@ class RegisterTournamentContainer extends React.Component<
 const mapDispatchToProps = (dispatch: any) => ({
   fetchTournament: (id: string) => {
     dispatch(fetchTournament(id));
+  },
+  register: (id: string, info: IRegisterTournament): Promise<any> => {
+    return dispatch(registerTournament(id, info));
   }
 });
 
 const mapStateToProp = (state: any) => {
   const tournament = state.tournament;
-  console.log(tournament);
   return { tournament };
 };
 
