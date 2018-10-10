@@ -46,6 +46,7 @@ class RegisterTournament extends React.Component<
       <div className="RegisterTournament">
         <Card>
           <h2>{tournament.name}</h2>
+          <p>Type: {tournament.type}</p>
           <p>Description: {tournament.description}</p>
           <p>Date: {tournament.date.format("YYYY-MM-DD, hh:mm")}</p>
           <p>
