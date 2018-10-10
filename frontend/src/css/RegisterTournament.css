@@ -3,6 +3,7 @@
   color: #ebebeb;
   height: 100%;
   width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-image: url("../img/thumb-1920-903580.png");
