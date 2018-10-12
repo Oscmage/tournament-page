@@ -12,8 +12,9 @@ function jwt() {
       "/users/authenticate",
       "/users/register",
       "/tournaments",
+      { url: new RegExp("^/tournament/.*/confirm/.*"), methods: ["PUT"] },
       { url: new RegExp("^/tournament/[^/]"), methods: ["GET"] },
-      { url: new RegExp("^/tournament/register/.*"), methods: ["POST"] }
+      { url: new RegExp("^/tournament/.*/register"), methods: ["POST"] }
     ]
   });
 }

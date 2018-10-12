@@ -36,10 +36,9 @@ class TournamentSnapshot extends React.Component<
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     // If we get here we will have a tournament but compiler can't know
-    console.log(this.props.history);
     if (this.props.tournament) {
       const { _id } = this.props.tournament;
-      this.props.history.push(`/tournaments/${_id}`);
+      this.props.history.push(`/tournament/${_id}`);
     }
   };
 }

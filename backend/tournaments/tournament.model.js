@@ -8,7 +8,8 @@ const ign = new Schema({
 const teamSchema = new Schema({
   teamName: { type: String, required: true },
   email: { type: String, required: true },
-  igns: [ign]
+  igns: [ign],
+  confirmed: { type: Boolean, default: false }
 });
 
 const tournamentSchema = new Schema({

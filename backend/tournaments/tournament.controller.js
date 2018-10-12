@@ -4,7 +4,8 @@ const tournamentService = require("./tournament.service");
 
 // routes
 router.post("/create", create);
-router.post("/register/:id", register);
+router.post("/:id/register", register);
+router.put("/:tournamentId/confirm/:teamId", confirmRegister);
 router.get("/:id", getById);
 router.put("/:id", update);
 router.delete("/:id", _delete);
@@ -47,6 +48,13 @@ function update(req, res, next) {
 function _delete(req, res, next) {
   tournamentService
     .delete(req.params.id)
+    .then(() => res.json({}))
+    .catch(err => next(err));
+}
+
+function confirmRegister(req, res, next) {
+  tournamentService
+    .confirmRegister(req.params.tournamentId, req.params.teamId)
     .then(() => res.json({}))
     .catch(err => next(err));
 }

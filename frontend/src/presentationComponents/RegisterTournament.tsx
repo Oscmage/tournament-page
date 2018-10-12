@@ -94,7 +94,7 @@ class RegisterTournament extends React.Component<
     if (registerStatus.status === tournamentRegister.SUCCESS) {
       return (
         <p>
-          Registered! You should now have received an email for conformation
+          Registered! You should now have received an email for confirmation
         </p>
       );
     }

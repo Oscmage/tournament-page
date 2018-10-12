@@ -156,8 +156,27 @@ export function registerTournament(id: string, info: IRegisterTournament) {
     };
     dispatch({ type: "Something" });
 
-    return fetch(`/tournament/register/${id}`, requestOptions).then(
+    return fetch(`/tournament/${id}/register`, requestOptions).then(
       handleResponse
     );
+  };
+}
+
+export function confirmRegisterTournament(
+  tournamentId: string,
+  teamId: string
+) {
+  // Try to confirm registration
+  return (dispatch: any) => {
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" }
+    };
+    dispatch({ type: "Something" });
+
+    return fetch(
+      `/tournament/${tournamentId}/confirm/${teamId}`,
+      requestOptions
+    ).then(handleResponse);
   };
 }

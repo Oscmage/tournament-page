@@ -9,6 +9,7 @@ module.exports = {
   create,
   update,
   register,
+  confirmRegister,
   delete: _delete
 };
 
@@ -83,32 +84,60 @@ async function register(id, teamInfo) {
     }
   });
 
-  const mailOptions = {
-    from: "tournament.page.activation@gmail.com",
-    to: "oscar.evertsson@gmail.com    ",
-    subject: "Sending Email using Node.js",
-    html: "<h1>Please confirm your registration to the tourmament</h1>"
-  };
-
   t.push(teamInfo);
-  await Tournament.updateOne(
+  await Tournament.findOneAndUpdate(
     { _id: id },
-    { $set: { teams: t } },
-    (err, res) => {
+    { teams: t },
+    { new: true },
+    (err, doc) => {
       if (err) {
         console.log(err);
         throw "Failed updating tournament with team";
       }
-      console.log(res);
+
+      const newItem = doc.teams.slice(-1)[0];
+      const mailOptions = {
+        from: "tournament.page.activation@gmail.com",
+        to: "oscar.evertsson@gmail.com    ",
+        subject: "Sending Email using Node.js",
+        html: `<h1>Please confirm your registration to the tourmament</h1> 
+        <a href="http://localhost:3000/tournament/${id}/confirm/${
+          newItem._id
+        }">http://localhost:3000/tournament/${id}/confirm/${newItem._id}
+        </a>`
+      };
+      mail.sendMail(mailOptions);
     }
   );
-  // mail.sendMail(mailOptions);
 }
 
 async function update(id, tournamentParams) {}
 
 async function _delete(id) {
   await Tournament.findByIdAndRemove(id);
+}
+
+async function confirmRegister(tournamentId, teamId) {
+  const obj = await Tournament.findById(tournamentId, {
+    teams: 1,
+    _id: 0,
+    registerDeadline: 1
+  });
+
+  // Check that we have not passed register deadline
+  if (datePassed(obj.registerDeadline)) {
+    throw "Registration deadline passed";
+  }
+
+  let t = obj.teams;
+  let idx = t.findIndex(e => e._id.toString() === teamId);
+
+  if (idx === -1) {
+    throw "Can't confirm a team that doesn't exist";
+  }
+
+  t[idx].confirmed = true;
+  await Tournament.findOneAndUpdate({ _id: tournamentId }, { teams: t });
 }
 
 function datePassed(registerDeadline) {
