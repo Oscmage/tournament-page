@@ -3,7 +3,10 @@ import "../css/RegisterTournament.css";
 import { ITournament, tournamentType } from "../interface/Tournament";
 import Card from "./Card";
 import Input from "./Input";
-import { IRegisterTournament } from "../interface/Tournament";
+import {
+  IRegisterTournament,
+  tournamentRegister
+} from "../interface/Tournament";
 
 class RegisterTournament extends React.Component<
   {
@@ -15,6 +18,7 @@ class RegisterTournament extends React.Component<
     teamName: string;
     email: string;
     igns: { name: string }[];
+    registerStatus: { status: tournamentRegister | undefined; errMsg: string };
   }
 > {
   public constructor(props: any) {
@@ -24,7 +28,8 @@ class RegisterTournament extends React.Component<
     this.state = {
       teamName: "",
       email: "",
-      igns
+      igns,
+      registerStatus: { status: undefined, errMsg: "" }
     };
   }
 
@@ -42,6 +47,7 @@ class RegisterTournament extends React.Component<
         description={"IGN " + (idx + 1)}
       />
     ));
+    const status = this.statusHtml();
     return (
       <div className="RegisterTournament">
         <Card>
@@ -72,13 +78,31 @@ class RegisterTournament extends React.Component<
               description="Email"
             />
             {inputs}
-
             <input type="submit" value="Register your team!" />
+            {status}
           </form>
         </Card>
       </div>
     );
   }
+
+  private statusHtml = () => {
+    const { registerStatus } = this.state;
+    if (registerStatus.status === tournamentRegister.REQUEST) {
+      return <p>Register request sent...</p>;
+    }
+    if (registerStatus.status === tournamentRegister.SUCCESS) {
+      return (
+        <p>
+          Registered! You should now have received an email for conformation
+        </p>
+      );
+    }
+    if (registerStatus.status === tournamentRegister.FAILURE) {
+      return <p>Register failed: {registerStatus.errMsg}</p>;
+    }
+    return "";
+  };
 
   private getIgnsInitialState = (tournament: ITournament) => {
     let igns = [];
@@ -128,13 +152,18 @@ class RegisterTournament extends React.Component<
       email,
       igns
     };
+    this.setRegisterStatus(tournamentRegister.REQUEST, "");
     register(tournament._id, info)
       .then(() => {
-        console.log("Success");
+        this.setRegisterStatus(tournamentRegister.SUCCESS, "");
       })
-      .catch(() => {
-        console.log("Fail");
+      .catch((e: any) => {
+        this.setRegisterStatus(tournamentRegister.FAILURE, e);
       });
+  };
+
+  private setRegisterStatus = (status: tournamentRegister, errMsg: string) => {
+    this.setState({ ...this.state, registerStatus: { status, errMsg } });
   };
 }
 
