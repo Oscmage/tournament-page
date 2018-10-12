@@ -1,5 +1,6 @@
 const db = require("./../_helpers/db.js");
 const { Tournament, User } = db;
+const moment = require("moment");
 
 module.exports = {
   getAll,
@@ -11,8 +12,12 @@ module.exports = {
 };
 
 async function getAll() {
-  const tournaments = await Tournament.find();
-  // TODO (Remove sensitive data if there is some)
+  let tournaments = await Tournament.find();
+  // Make sure the tournament is in the future and that the deadline for registering is not passed.
+  tournaments = tournaments.filter(
+    tournament =>
+      !datePassed(tournament.registerDeadline) && !datePassed(tournament.date)
+  );
   return tournaments;
 }
 
@@ -58,10 +63,21 @@ async function create(id, tournamentParams) {
 }
 
 async function register(id, teamInfo) {
-  const obj = await Tournament.findById(id, { teams: 1, _id: 0 });
+  const obj = await Tournament.findById(id, {
+    teams: 1,
+    _id: 0,
+    registerDeadline: 1
+  });
+
+  // Check that we have not passed register deadline
+  if (datePassed(registerDeadline)) {
+    throw "Registration deadline passed";
+  }
+
+  // Check for duplication in team name
   let t = obj.teams;
-  t.forEach(element => {
-    if (element.teamName === teamInfo.teamName) {
+  t.forEach(e => {
+    if (e.teamName === teamInfo.teamName) {
       throw "This team name already exists";
     }
   });
@@ -74,4 +90,10 @@ async function update(id, tournamentParams) {}
 
 async function _delete(id) {
   await Tournament.findByIdAndRemove(id);
+}
+
+function datePassed(registerDeadline) {
+  const currentTime = moment();
+  registerDeadline = moment(registerDeadline);
+  return currentTime.isAfter(registerDeadline);
 }
