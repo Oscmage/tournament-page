@@ -15,6 +15,17 @@ Run "Yarn" in backend to install dependencies.
 3. Start a mongodb shell by typin `mongo`
 4. In the shell create a mongodb collection by typing `use node-mongo-registration-login-api`
 
+#### Step 3
+
+In the root directory of backend create a file called "config.json" containing the following json object.
+
+{
+"connectionString": "mongodb://localhost/node-mongo-registration-login-api",
+"secret": "FAKE JWT TOKEN STRING WHOP WHOP",
+"username": "USERNAME FOR A GMAIL ACCOUNT FOR SENDING EMAIL REPLACE",
+"password": "PASSWORD FOR THAT GMAIL ACCOUNT"
+}
+
 ### Frontend
 
 Run "Yarn" in frontend

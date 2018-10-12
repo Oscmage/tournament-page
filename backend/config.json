@@ -1,4 +1,0 @@
-﻿{
-  "connectionString": "mongodb://localhost/node-mongo-registration-login-api",
-  "secret": "FAKE JWT TOKEN STRING WHOP WHOP"
-}
