@@ -91,13 +91,18 @@ async function register(id, teamInfo) {
   };
 
   t.push(teamInfo);
-  await Tournament.update({ _id: id }, { $set: { teams: t } }, (err, _) => {
-    if (err) {
-      console.log(err);
-      throw "Failed updating tournament with team";
+  await Tournament.updateOne(
+    { _id: id },
+    { $set: { teams: t } },
+    (err, res) => {
+      if (err) {
+        console.log(err);
+        throw "Failed updating tournament with team";
+      }
+      console.log(res);
     }
-  });
-  mail.sendMail(mailOptions);
+  );
+  // mail.sendMail(mailOptions);
 }
 
 async function update(id, tournamentParams) {}
