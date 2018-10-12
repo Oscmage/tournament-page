@@ -1,0 +1,8 @@
+.Team {
+  display: flex;
+  flex-direction: column;
+}
+
+.Team h3 {
+  overflow-wrap: break-word;
+}

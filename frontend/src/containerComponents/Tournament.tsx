@@ -1,12 +1,12 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { fetchTournament, registerTournament } from "./../actions/Tournament";
-import RegisterTournament from "../presentationComponents/RegisterTournament";
+import Tournament from "../presentationComponents/Tournament";
 import Spinner from "../presentationComponents/Spinner";
 import { withRouter } from "react-router-dom";
 import { IRegisterTournament } from "../interface/Tournament";
 
-class RegisterTournamentContainer extends React.Component<
+class TournamentContainer extends React.Component<
   {
     fetchTournament: (id: string) => void;
     tournament: any;
@@ -27,7 +27,7 @@ class RegisterTournamentContainer extends React.Component<
     const { id } = this.props.match.params;
     if (tournament[id] && tournament[id].tournament) {
       return (
-        <RegisterTournament
+        <Tournament
           register={this.props.register}
           tournament={tournament[id].tournament}
         />
@@ -55,4 +55,4 @@ const mapStateToProp = (state: any) => {
 export default withRouter(connect(
   mapStateToProp,
   mapDispatchToProps
-)(RegisterTournamentContainer) as any);
+)(TournamentContainer) as any);

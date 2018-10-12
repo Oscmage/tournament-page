@@ -27,9 +27,21 @@ export interface ITournament {
   registerDeadline: moment.Moment;
   maxTeams: number;
   admins: [];
-  teams: [];
+  teams: ITeam[];
   available: boolean;
   type: tournamentType;
+}
+
+export interface ITeam {
+  _id: string;
+  confirmed: boolean;
+  igns: IPlayer[];
+  teamName: string;
+}
+
+export interface IPlayer {
+  _id: string;
+  name: string;
 }
 
 export interface IRegisterTournament {

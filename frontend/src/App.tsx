@@ -7,7 +7,7 @@ import Dashboard from "./presentationComponents/Dashboard";
 import PrivateRoute from "./presentationComponents/PrivateRoute";
 import { MenuContainer } from "./containerComponents/Menu";
 import { RegisterContainer } from "./containerComponents/Register";
-import RegisterTournamentContainer from "./containerComponents/RegisterTournament";
+import TournamentContainer from "./containerComponents/Tournament";
 import RegisterTournamentConfirm from "./containerComponents/RegisterTournamentConfirm";
 
 class App extends React.Component {
@@ -27,7 +27,7 @@ class App extends React.Component {
             <Route
               exact
               path="/tournament/:id"
-              component={RegisterTournamentContainer}
+              component={TournamentContainer}
             />
             <PrivateRoute path="/dashboard" component={Dashboard} />
           </Switch>

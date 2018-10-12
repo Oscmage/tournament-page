@@ -65,19 +65,19 @@ async function create(id, tournamentParams) {
 }
 
 async function register(id, teamInfo) {
-  const obj = await Tournament.findById(id, {
+  const tournament = await Tournament.findById(id, {
     teams: 1,
     _id: 0,
     registerDeadline: 1
   });
 
   // Check that we have not passed register deadline
-  if (datePassed(obj.registerDeadline)) {
+  if (datePassed(tournament.registerDeadline)) {
     throw "Registration deadline passed";
   }
 
   // Check for duplication in team name
-  let t = obj.teams;
+  let t = tournament.teams;
   t.forEach(e => {
     if (e.teamName === teamInfo.teamName) {
       throw "This team name already exists";
@@ -99,8 +99,10 @@ async function register(id, teamInfo) {
       const mailOptions = {
         from: "tournament.page.activation@gmail.com",
         to: "oscar.evertsson@gmail.com    ",
-        subject: "Sending Email using Node.js",
-        html: `<h1>Please confirm your registration to the tourmament</h1> 
+        subject: "Please confirm your registration",
+        html: `<h1>Please confirm your registration to "${
+          tournament.name
+        }"</h1> 
         <a href="http://localhost:3000/tournament/${id}/confirm/${
           newItem._id
         }">http://localhost:3000/tournament/${id}/confirm/${newItem._id}
@@ -118,18 +120,18 @@ async function _delete(id) {
 }
 
 async function confirmRegister(tournamentId, teamId) {
-  const obj = await Tournament.findById(tournamentId, {
+  const tournament = await Tournament.findById(tournamentId, {
     teams: 1,
     _id: 0,
     registerDeadline: 1
   });
 
   // Check that we have not passed register deadline
-  if (datePassed(obj.registerDeadline)) {
+  if (datePassed(tournament.registerDeadline)) {
     throw "Registration deadline passed";
   }
 
-  let t = obj.teams;
+  let t = tournament.teams;
   let idx = t.findIndex(e => e._id.toString() === teamId);
 
   if (idx === -1) {
