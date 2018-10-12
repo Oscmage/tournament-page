@@ -1,6 +1,7 @@
 const db = require("./../_helpers/db.js");
 const { Tournament, User } = db;
 const moment = require("moment");
+const mail = require("./../_helpers/mail");
 
 module.exports = {
   getAll,
@@ -70,7 +71,7 @@ async function register(id, teamInfo) {
   });
 
   // Check that we have not passed register deadline
-  if (datePassed(registerDeadline)) {
+  if (datePassed(obj.registerDeadline)) {
     throw "Registration deadline passed";
   }
 
@@ -82,8 +83,21 @@ async function register(id, teamInfo) {
     }
   });
 
+  const mailOptions = {
+    from: "tournament.page.activation@gmail.com",
+    to: "oscar.evertsson@gmail.com    ",
+    subject: "Sending Email using Node.js",
+    html: "<h1>Please confirm your registration to the tourmament</h1>"
+  };
+
   t.push(teamInfo);
-  await Tournament.update({ _id: id }, { $set: { teams: t } });
+  await Tournament.update({ _id: id }, { $set: { teams: t } }, (err, _) => {
+    if (err) {
+      console.log(err);
+      throw "Failed updating tournament with team";
+    }
+  });
+  mail.sendMail(mailOptions);
 }
 
 async function update(id, tournamentParams) {}
