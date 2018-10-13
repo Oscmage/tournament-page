@@ -6,7 +6,6 @@ class Dashboard extends React.Component {
   public render() {
     return (
       <div className="Dashboard Page">
-        <h1>Dashboard page!</h1>
         <CreateTournamentContainer />
       </div>
     );
