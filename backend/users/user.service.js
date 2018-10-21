@@ -57,18 +57,14 @@ async function update(id, userParam) {
 
   // validate
   if (!user) throw "User not found";
-  if (
-    user.username !== userParam.username &&
-    (await User.findOne({ username: userParam.username }))
-  ) {
-    throw 'Username "' + userParam.username + '" is already taken';
-  }
 
-  // hash password if it was entered
-  if (userParam.password) {
-    userParam.hash = bcrypt.hashSync(userParam.password, 10);
+  if (bcrypt.compareSync(userParam.oldPassword, user.hash)) {
+    const newPassword = userParam.newPassword;
+    userParam.hash = bcrypt.hashSync(newPassword, 10);
+    // Update password
+  } else {
+    throw "Wrong password";
   }
-
   // copy userParam properties to user
   Object.assign(user, userParam);
 

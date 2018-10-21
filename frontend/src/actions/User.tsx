@@ -1,5 +1,6 @@
 import { IRegisterUser as User, Registration } from "./../interface/User";
 import { handleResponse } from "../helpers/Api";
+import { authHeader } from "../helpers/AuthHeader";
 
 function requestRegister(user: User): any {
   return {
@@ -96,6 +97,21 @@ export function logout(history: any) {
     localStorage.removeItem("user");
     history.push("/"); // Redirect to home page when logout
     dispatch({ type: LOGOUT });
+  };
+}
+
+export function update(oldPassword: string, newPassword: string) {
+  const requestOptions: any = {
+    method: "PUT",
+    headers: { ...authHeader(), "Content-Type": "application/json" },
+    body: JSON.stringify({ oldPassword, newPassword })
+  };
+  return (dispatch: any) => {
+    return fetch(`/users/update`, requestOptions)
+      .then(handleResponse)
+      .then(() => {
+        dispatch({ type: "UPDATE PASSWORD SUCCESS" });
+      });
   };
 }
 

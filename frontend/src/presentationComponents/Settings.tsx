@@ -5,12 +5,13 @@ import Input from "./Input";
 import { Request } from "../interface/General";
 
 class Settings extends React.Component<
-  {},
+  { update: (oldPassword: string, newPassword: string) => Promise<any> },
   {
     oldPassword: string;
     password: string;
     rePassword: string;
     updatePasswordStatus: Request;
+    errorMsg: string;
   }
 > {
   public constructor(props: any) {
@@ -19,7 +20,8 @@ class Settings extends React.Component<
       oldPassword: "",
       password: "",
       rePassword: "",
-      updatePasswordStatus: Request.NONE
+      updatePasswordStatus: Request.NONE,
+      errorMsg: ""
     };
   }
 
@@ -51,11 +53,38 @@ class Settings extends React.Component<
             onChange={this.onUpdateRePassword}
             value={this.state.rePassword}
           />
-          <input type="submit" />
+          <input type="submit" value="Update" />
+          {this.requestStatus()}
+          {this.getErrorMsg()}
         </form>
       </Card>
     );
   }
+
+  private getErrorMsg = () => {
+    const { errorMsg } = this.state;
+    if (errorMsg !== "") {
+      return <span>{errorMsg}</span>;
+    }
+    return "";
+  };
+
+  private requestStatus = () => {
+    const status = this.state.updatePasswordStatus;
+    if (status === Request.NONE) {
+      return "";
+    }
+
+    if (status === Request.REQUEST) {
+      return "Update requested";
+    }
+
+    if (status === Request.FAILURE) {
+      return "Request Failed";
+    }
+
+    return "Update password success! ";
+  };
 
   private onUpdateOldPassword = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -78,11 +107,37 @@ class Settings extends React.Component<
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
-    // Send put request to backend for updating password
+    const { password, rePassword, oldPassword } = this.state;
+
+    if (password !== rePassword) {
+      this.setState({ ...this.state, errorMsg: "Password does not match" });
+    } else {
+      this.setState({ ...this.state, updatePasswordStatus: Request.REQUEST });
+
+      this.props
+        .update(oldPassword, password)
+        .then(() => {
+          this.setState({
+            ...this.state,
+            updatePasswordStatus: Request.SUCCESS
+          });
+        })
+        .catch((error: string) => {
+          this.setState({
+            ...this.state,
+            updatePasswordStatus: Request.FAILURE,
+            errorMsg: error
+          });
+        });
+    }
   };
 
   private resetPasswordStatus = () => {
-    this.setState({ ...this.state, updatePasswordStatus: Request.NONE });
+    this.setState({
+      ...this.state,
+      updatePasswordStatus: Request.NONE,
+      errorMsg: ""
+    });
   };
 }
 

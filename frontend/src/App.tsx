@@ -9,7 +9,7 @@ import { MenuContainer } from "./containerComponents/Menu";
 import { RegisterContainer } from "./containerComponents/Register";
 import TournamentContainer from "./containerComponents/Tournament";
 import RegisterTournamentConfirm from "./containerComponents/RegisterTournamentConfirm";
-import Settings from "./presentationComponents/Settings";
+import { SettingsContainer } from "./containerComponents/Settings";
 
 class App extends React.Component {
   public render() {
@@ -32,7 +32,7 @@ class App extends React.Component {
               component={TournamentContainer}
             />
             <PrivateRoute path="/dashboard" component={Dashboard} />
-            <PrivateRoute path="/settings" component={Settings} />
+            <PrivateRoute path="/settings" component={SettingsContainer} />
           </Switch>
         </div>
       </Router>
